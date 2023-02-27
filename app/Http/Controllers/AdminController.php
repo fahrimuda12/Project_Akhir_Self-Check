@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gejala;
 use App\Models\Pakar;
 use App\Models\Penyakit;
+use App\Models\Rule;
+use App\Models\SkalarCF;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -24,9 +27,15 @@ class AdminController extends Controller
     public function indexKelola()
     {
         $disease = Penyakit::all();
+        $gejala = Gejala::all();
+        $rule = Rule::paginate(10);
+        $skalar = SkalarCF::all();
         return view('admin/index-data', [
             'title' => 'Kelola Data',
-            'diseases' => $disease
+            'diseases' => $disease,
+            'gejala' => $gejala,
+            'rules' => $rule,
+            'skalar' => $skalar
         ]);
     }
 
