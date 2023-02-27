@@ -40,7 +40,7 @@ Route::name('auth.')->group(function () {
 
 Route::name('konsul.')->middleware('auth')->prefix('konsul')->group(function () {
     Route::get('/quiz', [SelfCheckController::class, 'indexQuiz'])->name('quiz');
-    Route::get('/diagnosa', [SelfCheckController::class, 'indexDiagnosa'])->name('hasil');
+    Route::post('/diagnosa', [SelfCheckController::class, 'indexDiagnosa'])->name('hasil');
 });
 
 Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function () {
