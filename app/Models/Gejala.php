@@ -14,8 +14,14 @@ class Gejala extends Model
     public $incrementing = false;
     // protected $guard = 'pakar';
     protected $fillable = [
+        'gejala',
         'kode_gejala',
         'nip_dokter',
-        'gejala',
+
     ];
+
+    public function penyakit()
+    {
+        return $this->belongsToMany(Penyakit::class, 'rule', 'kode_gejala', 'kode_penyakit');
+    }
 }

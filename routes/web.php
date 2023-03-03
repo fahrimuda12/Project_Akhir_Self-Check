@@ -56,6 +56,10 @@ Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function
     Route::post('/kelola-pengguna/dokter/tambah', [DokterController::class, 'store'])->name('kelola-pengguna.tambah-dokter.post');
     Route::get('/kelola-pengguna/dokter/edit/{id}', [DokterController::class, 'edit'])->name('kelola-pengguna.edit-dokter');
     Route::post('/kelola-pengguna/dokter/edit/{id}', [DokterController::class, 'update'])->name('kelola-pengguna.update-dokter');
+
+
+    // API Sementara
+    Route::get('/api/rule', [AdminController::class, 'apiRule']);
 });
 
 Route::name('pakar.')->middleware('auth:pakar')->prefix('pakar')->group(function () {
