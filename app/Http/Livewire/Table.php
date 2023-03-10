@@ -24,7 +24,11 @@ abstract class Table extends Component
 
     public abstract function query(): Builder;
 
+    public abstract function paramPage(): string;
+
     public abstract function columns(): array;
+
+
 
     public function data()
     {
@@ -33,7 +37,7 @@ abstract class Table extends Component
             ->when($this->sortBy !== '', function ($query) {
                 $query->orderBy($this->sortBy, $this->sortDirection);
             })
-            ->paginate($this->perPage);
+            ->paginate($this->perPage, ['*'], $this->paramPage());
     }
 
     public function paginationView()

@@ -7,18 +7,16 @@ use App\Models\Rule;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class RulersTable extends Table
+class PenyakitTable extends Table
 {
     public function query(): Builder
     {
-        return Penyakit::select('*')
-            ->join('rule', 'rule.kode_penyakit', '=', 'penyakit.kode_penyakit')
-            ->join('gejala', 'gejala.kode_gejala', '=', 'rule.kode_gejala');
+        return Penyakit::query();
     }
 
     public function paramPage(): string
     {
-        return 'page_rule';
+        return 'page_penyakit';
     }
 
     public function columns(): array
@@ -26,8 +24,7 @@ class RulersTable extends Table
         return [
             Column::make('kode_penyakit', 'Kode'),
             Column::make('nama_penyakit', 'Penyakit'),
-            Column::make('gejala', 'Gejala'),
-            Column::make('nilai_cf', 'Nilai CF'),
+            Column::make('nip_dokter', 'Penginput'),
             Column::make('created_at', 'Created At'),
         ];
     }

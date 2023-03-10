@@ -5,10 +5,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\GejalaController;
 use App\Http\Controllers\PakarController;
 use App\Http\Controllers\PenyakitController;
 use App\Http\Controllers\SelfCheckController;
 use App\Models\Admin;
+use App\Models\Gejala;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
@@ -47,6 +49,7 @@ Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/kelola-data', [AdminController::class, 'indexKelola'])->name('kelola-data');
     Route::get('/Kelola-data/penyakit/tambah', [PenyakitController::class, 'create'])->name('kelola-data.tambah-penyakit');
+    Route::post('/Kelola-data/penyakit/tambah', [PenyakitController::class, 'storePenyakit'])->name('kelola-data.tambah-penyakit');
     Route::get('/kelola-pengguna', [AdminController::class, 'indexPengguna'])->name('kelola-pengguna');
     Route::get('/kelola-pengguna/user/tambah', [AdminController::class, 'createPengguna'])->name('kelola-pengguna.tambah-user');
     Route::post('/kelola-pengguna/user/tambah', [AdminController::class, 'storePengguna'])->name('kelola-pengguna.tambah-user.post');
@@ -75,3 +78,9 @@ Route::name('pakar.')->middleware('auth:pakar')->prefix('pakar')->group(function
     Route::post('/gejala/tambah', [PakarController::class, 'storeGejala'])->name('gejala.tambah.post');
     Route::get('/gejala/edit/{id}', [PakarController::class, 'editGejala'])->name('gejala.edit');
 });
+
+
+// Route::name('get.')->prefix('get')->group(function () {
+//     Route::get('/gejala', [GejalaController::class, 'gejala'])->name('gejala');
+//     Route::get('/gejala/{id}', [GejalaController::class, 'gejalaById'])->name('gejala.id');
+// });

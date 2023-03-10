@@ -14,16 +14,11 @@ class Penyakit extends Model
     protected $primaryKey = 'kode_penyakit';
     protected $keyType = 'string';
     public $incrementing = false;
-    // protected $fillable = [
-    //     'nrp',
-    //     'nama',
-    //     'jenkel',
-    //     'umur',
-    //     'alamat',
-    //     'no_hp',
-    //     'email',
-    //     'password',
-    // ];
+    protected $fillable = [
+        'kode_penyakit',
+        'nip_dokter',
+        'nama_penyakit'
+    ];
 
     public function gejala(): BelongsToMany
     {

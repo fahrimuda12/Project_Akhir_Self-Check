@@ -7,8 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/select2.min.css') }}">
 
-    {{-- <link rel="stylesheet" href="{{ asset('assets/css/datatable.min.css') }}"> --}}
     <style>
         [x-cloak] {
             display: none !important;
@@ -19,6 +20,7 @@
 
 <body>
     {{-- This is login page --}}
+    @include('admin.sidebar')
     <section id="dashboard">
         <div class="container mx-auto my-auto">
             {{-- @yield('sidebar') --}}
@@ -27,11 +29,53 @@
     </section>
 
     {{-- <script src="https://kit.fontawesome.com/c7aacba508.js" crossorigin="anonymous"></script> --}}
-    {{-- <script src="https://code.jquery.com/jquery-3.6.3.min.js"
-        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src={{ asset('assets/js/fontawesome.js') }} type="text/javascript"></script>
     <script src={{ asset('assets/js/flowbite.min.js') }} type="text/javascript"></script>
-    {{-- <script src={{ asset('assets/js/datatable.min.js') }} type="text/javascript"></script> --}}
+    <script src={{ asset('assets/js/select2.min.js') }} type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.group-select').find("select").select2({
+                placeholder: "Pilih Gejala",
+                allowClear: true,
+                // minimumInputLength: 3,
+                tags: true,
+                createTag: function(params) {
+                    var term = $.trim(params.term);
+
+                    if (term === '') {
+                        return null;
+                    } else {
+                        console.log(term);
+                    }
+
+                    return {
+                        id: term,
+                        text: term,
+                        newTag: true // add additional parameters
+                    }
+
+                }
+            });
+
+            $('.group-select').find("select")
+
+            // $('.select2-gejala-2').select2({
+            //     placeholder: "Pilih Gejala",
+            //     allowClear: true,
+            // });
+
+            // $('.select2-gejala').each(function() {
+            //     $(this).select2({
+            //         placeholder: "Pilih Gejala",
+            //         allowClear: true,
+            //     })
+            // });
+            $(".select2").css("width", "");
+        });
+    </script>
 
     {{-- <script>
         $(document).ready(function() {
