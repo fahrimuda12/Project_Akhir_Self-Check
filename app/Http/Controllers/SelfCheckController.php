@@ -260,12 +260,16 @@ class SelfCheckController extends Controller
 
                 // echo $value['hari'] . "<br>";
                 //Melakukan pengecekan apakah setiap pertanyaan dijawab atau tidak
-                if (isset($value['nilai'])) {
-                    echo $value['kode_gejala'] . ' = ' . $value['nilai'] . ' <br />';
-                    //Mencari hasil dari rule yang sesuai
-                    $result = TabelKeputusan::where('kode_penyakit', $kode_penyakit)->where('kode_gejala', $value['kode_gejala'])->first();
-                    if (isset($result->nilai_cf)) {
-                        $CF_E = $result->nilai_cf;
+                $result = TabelKeputusan::where('kode_penyakit', $kode_penyakit)->where('kode_gejala', $value['kode_gejala'])->first();
+
+                if (isset($result->nilai_cf)) {
+                    $CF_E = $result->nilai_cf;
+                    if (isset($value['nilai'])) {
+                        echo $value['kode_gejala'] . ' = ' . $value['nilai'] . ' <br />';
+                        //Mencari hasil dari rule yang sesuai
+
+
+
                         // if ($i > 0) {
                         // echo $value['kode_gejala'] . ' = ' . $kode_penyakit . ' = ' . $value['nilai'] . ' = ';
                         // echo $CF_E . '  --> Inisalisasi' .  '<br>';
@@ -287,14 +291,8 @@ class SelfCheckController extends Controller
                         }
                         echo '<br>';
                     }
-
-                    // echo $CF_E . '<br>';
-                }
-                if (isset($value['hari'])) {
-                    $data_skalar = json_decode($value['skalar'], true);
-                    $result = TabelKeputusan::where('kode_penyakit', $kode_penyakit)->where('kode_gejala', $value['kode_gejala'])->first();
-                    if (isset($result->nilai_cf)) {
-                        $CF_E = $result->nilai_cf;
+                    if (isset($value['hari'])) {
+                        $data_skalar = json_decode($value['skalar'], true);
                         //Mencari nilai skalar
                         foreach ($data_skalar as $skalar_value) {
                             // $skalar = explode('-', $value->skalar);
@@ -330,6 +328,7 @@ class SelfCheckController extends Controller
                         // echo 'Skalar = ' . $data  . "<br />";
                     }
                 }
+                // echo $CF_E . '<br>';
             }
 
             echo '<br />';
