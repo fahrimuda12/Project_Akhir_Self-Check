@@ -60,7 +60,37 @@
                 }
             });
 
-            $('.group-select').find("select")
+            $('template .group-select').find("select").select2({
+                placeholder: "Pilih Gejala",
+                allowClear: true,
+                // minimumInputLength: 3,
+                tags: true,
+                createTag: function(params) {
+                    var term = $.trim(params.term);
+
+                    if (term === '') {
+                        return null;
+                    } else {
+                        console.log(term);
+                    }
+
+                    return {
+                        id: term,
+                        text: term,
+                        newTag: true // add additional parameters
+                    }
+
+                }
+            });
+
+            // $('.group-select-nilai').find("select").select2({
+            //     placeholder: "Masukkan nilai",
+            //     allowClear: true,
+            //     tags: false
+            //     // minimumInputLength: 3,
+            // });
+
+            // $('.group-select').find("select")
 
             // $('.select2-gejala-2').select2({
             //     placeholder: "Pilih Gejala",

@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class TabelKeputusan extends Model
 {
     use HasFactory;
-    protected $table = 'keputusan';
+    protected $table = 'rule';
 }

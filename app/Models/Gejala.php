@@ -24,4 +24,14 @@ class Gejala extends Model
     {
         return $this->belongsToMany(Penyakit::class, 'rule', 'kode_gejala', 'kode_penyakit');
     }
+
+    public function pertanyaan()
+    {
+        return $this->hasOne(Pertanyaan::class, 'kode_gejala', 'kode_gejala');
+    }
+
+    // public function havePertanyaan()
+    // {
+    //     return count($this->pertanyaan()->exists());
+    // }
 }

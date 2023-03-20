@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
-class GejalaTable extends Table
+class PertanyaanTable extends Table
 {
     public  function __construct()
     {

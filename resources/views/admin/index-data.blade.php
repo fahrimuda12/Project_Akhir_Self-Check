@@ -99,7 +99,7 @@
         <section id="tabel-gejala" class="mb-10">
             <div class="flex items-center justify-items-start md:justify-between mb-4">
                 <p class="text-lg font-semibold whitespace-nowrap">Gejala</p>
-                <a href="{{ route('admin.kelola-data.tambah-penyakit') }}" data-mdb-ripple="true"
+                <a href="{{ route('admin.kelola-data.tambah-gejala') }}" data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
                     class="inline-block
                                     px-7 py-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded
@@ -111,6 +111,23 @@
             </div>
             <div class="relative overflow-x-auto">
                 <livewire:gejala-table></livewire:gejala-table>
+            </div>
+        </section>
+        <section id="tabel-gejala" class="mb-10">
+            <div class="flex items-center justify-items-start md:justify-between mb-4">
+                <p class="text-lg font-semibold whitespace-nowrap">Pertanyaan</p>
+                <a href="{{ route('admin.kelola-data.tambah-gejala') }}" data-mdb-ripple="true"
+                    data-mdb-ripple-color="light"
+                    class="inline-block
+                                    px-7 py-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded
+                                    shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg
+                                    focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150
+                                    ease-in-out">
+                    Tambah Data +
+                </a>
+            </div>
+            <div class="relative overflow-x-auto">
+                <livewire:pertanyaan-table></livewire:pertanyaan-table>
             </div>
         </section>
         {{-- <section id="tabel-rule" class="mb-10">

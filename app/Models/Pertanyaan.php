@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,4 +26,74 @@ class Pertanyaan extends Model
         'nip',
         'nip_dokter'
     ];
+
+    protected $appends = [
+        'merge_bobot',
+    ];
+
+    protected function filterCode($val)
+    {
+        $kode = substr($val, 0, 2);
+        if ($kode == "KS") {
+            return 'pilgan';
+        } else {
+            return 'isian';
+        }
+    }
+
+    protected function mergeBobot(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if ($this->filterCode($this->opsi_1) == 'isian') {
+                    $result_opsi_1 =  isset($this->opsi_1->kode_skalar) ? SkalarCF::where('kode_skalar', $this->opsi_1->kode_skalar)->select('bobot_nilai', 'skalar')->first()->makeHidden('type') : null;
+                    $result_opsi_2 =  isset($this->opsi_2->kode_skalar) ? SkalarCF::where('kode_skalar', $this->opsi_2->kode_skalar)->select('bobot_nilai', 'skalar')->first()->makeHidden('type') : null;
+                    $result_opsi_3 =  isset($this->opsi_3->kode_skalar) ? SkalarCF::where('kode_skalar', $this->opsi_3->kode_skalar)->select('bobot_nilai', 'skalar')->first()->makeHidden('type') : null;
+                    $result_opsi_4 =  isset($this->opsi_4->kode_skalar) ? SkalarCF::where('kode_skalar', $this->opsi_4->kode_skalar)->select('bobot_nilai', 'skalar')->first()->makeHidden('type') : null;
+                    $result_opsi_5 =  isset($this->opsi_5->kode_skalar) ? SkalarCF::where('kode_skalar', $this->opsi_5->kode_skalar)->select('bobot_nilai', 'skalar')->first()->makeHidden('type') : null;
+                    $result_opsi_6 =  isset($this->opsi_6->kode_skalar) ? SkalarCF::where('kode_skalar', $this->opsi_6->kode_skalar)->select('bobot_nilai', 'skalar')->first()->makeHidden('type') : null;
+                    $opsi = [$result_opsi_1, $result_opsi_2, $result_opsi_3, $result_opsi_4, $result_opsi_5, $result_opsi_6];
+                    $opsi = array_filter(array_map(function ($val) {
+                        return $val ? $val->toArray() : null;
+                    }, $opsi));
+                    // dd($opsi);
+                    // var_dump($opsi);
+                    // die();
+                    return $opsi;
+                }
+
+                // dd($this->opsi_2->kode_skalar);
+                // echo $result_opsi_2 . "<br>";
+
+                // $kode = substr($this->kode_skalar, 0, 2);
+                // if ($kode == "KS") {
+                //     return 'pilgan';
+                // } else {
+                //     return 'isian';
+                // }
+            },
+        );
+    }
+
+    // protected function mergeRule(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: function () {
+    //             $opsi_1 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_1)->first();
+    //             $opsi_2 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_2)->first();
+    //             $opsi_3 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_3)->first();
+    //             $opsi_4 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_4)->first();
+    //             $opsi_5 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_5)->first();
+    //             $opsi_6 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_6)->first();
+    //             $opsi = array($opsi_1, $opsi_2, $opsi_3, $opsi_4, $opsi_5, $opsi_6);
+    //             return $opsi;
+    //             // $kode = substr($this->kode_skalar, 0, 2);
+    //             // if ($kode == "KS") {
+    //             //     return 'pilgan';
+    //             // } else {
+    //             //     return 'isian';
+    //             // }
+    //         },
+    //     );
+    // }
 }

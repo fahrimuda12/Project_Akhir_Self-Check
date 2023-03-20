@@ -24,7 +24,9 @@ class GejalaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/kelola-data/gejala/create', [
+            'title' => 'Tambah Penyakit',
+        ]);
     }
 
     /**
@@ -57,7 +59,9 @@ class GejalaController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin/kelola-data/gejala/create', [
+            'title' => 'Edit Penyakit',
+        ]);
     }
 
     /**
