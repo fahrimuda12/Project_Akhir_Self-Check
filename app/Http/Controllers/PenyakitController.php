@@ -20,7 +20,13 @@ class PenyakitController extends Controller
      */
     public function index()
     {
-        //
+        $disease = Penyakit::with('gejala')->get();
+        $rule = Rule::paginate(10);
+        return view('admin/kelola-data/penyakit/index', [
+            'title' => 'Penyakit',
+            'diseases' => $disease,
+            'rules' => $rule,
+        ]);
     }
 
     /**

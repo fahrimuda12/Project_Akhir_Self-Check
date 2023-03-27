@@ -97,29 +97,26 @@
                                 @foreach ($element as $page => $url)
                                     <span
                                         wire:key="paginator-{{ $paginator->getPageName() }}-{{ $this->numberOfPaginatorsRendered[$paginator->getPageName()] }}-page{{ $page }}">
+                                        {{-- active page --}}
                                         @if ($page == $paginator->currentPage())
-                                            <span aria-current="page">
-                                                <span
-                                                    class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-red-500 bg-white border border-gray-300 cursor-default leading-5 select-none">{{ $page }}</span>
-                                            </span>
+                                            <button type="button"
+                                                wire:click="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
+                                                class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-blue-500 bg-slate-100 border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
+                                                aria-label="{{ __('Go to page :page', ['page' => $page]) }}">
+                                                {{ $page }}
+                                            </button>
+                                        @elseif ($page == $paginator->count() / 2)
+                                            <span
+                                                class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">...</span>
                                         @else
-                                            @if ($page == $paginator->currentPage())
-                                                <button type="button"
-                                                    wire:click="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
-                                                    class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-                                                    aria-label="{{ __('Go to page :page', ['page' => $page]) }}">
-                                                    {{ $page }}
-                                                </button>
-                                                {{-- @else
-                                                <button type="button"
-                                                    wire:click="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
-                                                    class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
-                                                    aria-label="{{ __('Go to page :page', ['page' => $page]) }}">
-                                                    {{ $page }}
-                                                </button>
-                                                <span>...</span> --}}
-                                            @endif
+                                            <button type="button"
+                                                wire:click="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
+                                                class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
+                                                aria-label="{{ __('Go to page :page', ['page' => $page]) }}">
+                                                {{ $page }}
+                                            </button>
                                         @endif
+
                                     </span>
                                 @endforeach
                             @endif

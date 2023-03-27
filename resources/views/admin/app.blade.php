@@ -18,19 +18,22 @@
     @livewireStyles
 </head>
 
-<body>
+<body class="bg-slate-100">
     {{-- This is login page --}}
     @include('admin.sidebar')
     <section id="dashboard">
-        <div class="container mx-auto my-auto">
-            {{-- @yield('sidebar') --}}
-            @yield('content')
+        <div class="h-full">
+            <div class="container mx-auto my-auto pt-20 pb-4 ">
+                {{-- @yield('sidebar') --}}
+                @yield('content')
+            </div>
+
         </div>
     </section>
 
     {{-- <script src="https://kit.fontawesome.com/c7aacba508.js" crossorigin="anonymous"></script> --}}
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
-        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src={{ asset('assets/js/jquery-3.6.3.min.js') }}></script>
+    <script src={{ asset('assets/js/jquery-inputmask-5.0.6.min.js') }}></script>
     <script src={{ asset('assets/js/fontawesome.js') }} type="text/javascript"></script>
     <script src={{ asset('assets/js/flowbite.min.js') }} type="text/javascript"></script>
     <script src={{ asset('assets/js/select2.min.js') }} type="text/javascript"></script>
@@ -104,6 +107,58 @@
             //     })
             // });
             $(".select2").css("width", "");
+        });
+    </script>
+
+
+    <script>
+        console.log($('input[name="skalarOption"]:checked').val() == "pilgan");
+        if ($('input[name="skalarOption"]:checked').val() == "pilgan") {
+            console.log("benar");
+            $('#hariForm').hide();
+        } else {
+            $('#pilganForm').hide();
+        }
+
+        $(document).ready(function() {
+
+            const radioButtons = $('input[name="skalarOption"]');
+            const formPilgan = $('#pilganForm');
+            const formHari = $('#hariForm');
+
+
+
+            radioButtons.change(function() {
+                // Mengambil nilai value dari radio button yang dipilih
+                const selectedValue = $(this).val();
+
+                // Menampilkan atau menyembunyikan input field berdasarkan nilai yang dipilih
+                if (selectedValue === "pilgan") {
+                    formPilgan.show();
+                    formHari.hide();
+                } else if (selectedValue === "hari") {
+                    formPilgan.hide();
+                    formHari.show();
+                }
+            });
+
+
+            // Format hari
+            $('#inputHari').on('input', function() {
+                // Mendapatkan input dari pengguna
+                var input = $(this).val();
+
+                // Menghilangkan tanda "-" yang sebelumnya disisipkan
+                input = input.replace('-', '');
+
+                // Menambahkan tanda "-" pada posisi yang benar
+                if (input.length > 1) {
+                    input = input.slice(0, 1) + '-' + input.slice(1);
+                }
+
+                // Menetapkan nilai input yang telah dimodifikasi kembali ke elemen input
+                $(this).val(input);
+            });
         });
     </script>
 

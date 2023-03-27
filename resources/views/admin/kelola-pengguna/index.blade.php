@@ -1,6 +1,6 @@
 @extends('admin/app')
 @section('content')
-    @extends('admin/sidebar')
+    {{-- @extends('admin/sidebar') --}}
     <div class="py-8 px-4 sm:ml-64">
         <section id="tabel-user" class="mb-10">
             <div class="flex items-center justify-items-start justify-between mb-4">

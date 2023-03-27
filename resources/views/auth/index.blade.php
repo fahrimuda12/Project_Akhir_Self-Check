@@ -4,13 +4,14 @@
     <section id="login">
         <div class="container mx-auto my-auto">
             <div
-                class="flex xl:justify-center
-                    lg:justify-around lg:pt-16
-                    md:px-10 md:pt-8 pt-14
-                    justify-center items-center flex-wrap h-full g-6">
-                <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-1/2 mb-12 md:mb-0">
-                    <span class="lg:text-4xl mb-8 lg:w-3/4">
-                        <h1 class="">Selamat Datang, Silahkan Masuk Kembali</h1>
+                class="mb-4 md:mt-8 flex xl:justify-around
+                    lg:justify-around
+                    md:px-10 gap-10
+                    justify-center items-start flex-wrap h-full">
+                <div class="mb-12 md:mb-0">
+                    <span class="lg:text-4xl mb-8 text-center">
+                        <h1 class="">Selamat Datang</h1>
+                        <h1> Silahkan Masuk Kembali</h1>
                         {{-- <h1></h1>
                         <h1 class="font-bold"></h1> --}}
                     </span>
@@ -19,36 +20,51 @@
                         {{-- @method('POST') --}}
                         <!-- Password input -->
                         <div class="mb-6 mt-3">
-                            <label for="password" class="block text-sm font-medium text-center lg:w-3/4 text-gray-700 mb-2">
-                                Login Sebagai
-                            </label>
-                            <div
-                                class="flex flex-row items-center justify-center lg:justify-around lg:w-3/4 md:justify-start">
-                                <input class="appearance-none" type="radio" id="admin" name="role" value="1">
-                                <label for="admin"
-                                    class="cursor-pointer flex items-center truncate select-none text-lg rounded-full py-2"><i
-                                        class="fa-solid fa-user-lock"></i> Admin
-                                </label>
-                                <input class="appearance-none" type="radio" id="user" name="role" value="2">
-                                <label for="user"
-                                    class="cursor-pointer flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full py-2"><i
-                                        class="fa-solid fa-user-lock"></i> User
-                                </label>
-                                <input class="appearance-none" type="radio" id="dokter" name="role" value="3">
-                                <label for="dokter"
-                                    class="cursor-pointer flex items-center justify-center truncate uppercase select-none font-semibold text-lg rounded-full py-2"><i
-                                        class="fa-solid fa-user-lock"></i> Dokter
-                                </label>
+                            <div class="items-center">
+                                <p for="password" class="block text-sm text-center font-medium text-gray-700 ">
+                                    Login Sebagai
+                                </p>
+                            </div>
+                            <div class="flex flex-row md:items-center justify-around md:gap-3 lg:gap-0 lg:justify-around">
+                                <div class="inline-block ">
+                                    <input class="appearance-none peer" type="radio" id="admin" name="role"
+                                        value="1">
+                                    <label for="admin"
+                                        class="px-2 py-1 gap-1 rounded-lg flex justify-center items-center text-sm lg:text-lg  w-10 h-10 lg:w-full lg:h-12 cursor-pointer
+                                        peer-checked:flex-col peer-checked:w-16 peer-checked:gap-0
+                                        "><i
+                                            class="fa-solid fa-user-lock"></i> Admin
+                                    </label>
+                                </div>
+                                <div class="inline-block">
+                                    <input class="appearance-none peer" type="radio" id="user" name="role"
+                                        value="2">
+                                    <label for="user"
+                                        class="px-2 py-1 gap-1 rounded-lg flex justify-center items-center text-sm lg:text-lg  w-10 h-10 lg:w-full lg:h-12 cursor-pointer
+                                    peer-checked:flex-col peer-checked:w-16 peer-checked:gap-0"><i
+                                            class="fa-solid fa-user-lock"></i> User
+                                    </label>
+                                </div>
+                                <div class="inline-block">
+                                    <input class="appearance-none peer" type="radio" id="dokter" name="role"
+                                        value="3">
+                                    <label for="dokter"
+                                        class="px-2 py-1 gap-1 rounded-lg flex justify-center items-center text-sm lg:text-lg  w-10 h-10 lg:w-full lg:h-12 cursor-pointer
+                                    peer-checked:flex-col peer-checked:w-16 peer-checked:gap-0"><i
+                                            class="fa-solid fa-user-lock"></i> Dokter
+                                    </label>
+                                </div>
+
                             </div>
                         </div>
 
                         <!-- Email input -->
-                        <div class="mb-6 mt-6">
+                        <div class="flex flex-col mb-6 mt-6">
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                                 Alamat Email
                             </label>
                             <input type="text"
-                                class="form-control block lg:w-3/4 px-3 py-1 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                class="form-control block px-3 py-1 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 id="email" name="email" placeholder="Masukkan Alamat Email"
                                 value="{{ old('email') }}" />
                             @error('email')
@@ -61,12 +77,12 @@
                         </div>
 
                         <!-- Password input -->
-                        <div class="mb-6">
+                        <div class="flex flex-col mb-6">
                             <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                                Alamat Email
+                                Password
                             </label>
                             <input type="password"
-                                class="form-control block lg:w-3/4 px-3 py-1 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                class="form-control block px-3 py-1 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 id="password" name="password" placeholder="Password" />
                             @error('password')
                                 <div class="p-4
@@ -77,7 +93,7 @@
                             @enderror
                         </div>
 
-                        <div class="flex lg:w-3/4 justify-between md:justify-start md:gap-4 items-center mb-6">
+                        <div class="flex justify-between md:justify-between gap-2 md:gap-4 items-center mb-6">
                             <div class="form-group form-check">
                                 <input type="checkbox"
                                     class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
@@ -85,12 +101,12 @@
                                 <label class="form-check-label inline-block text-gray-800" for="exampleCheck2">Remember
                                     me</label>
                             </div>
-                            <a href="#!" class="text-gray-800">Forgot password?</a>
+                            <a href="#!" class="text-blue-800 hover:underline">Forgot password?</a>
                         </div>
 
                         <div class="text-center md:text-start lg:text-left">
                             <button type="submit" data-mdb-ripple="true" data-mdb-ripple-color="light"
-                                class="inline-block lg:w-3/4
+                                class="inline-block md:w-full
                                 px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded
                                 shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg
                                 focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150
@@ -105,7 +121,7 @@
                         </div>
 
                         <div
-                            class="flex items-center lg:w-3/4 md:w-72 my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+                            class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                             <p class="text-center font-semibold mx-4 mb-0">Or</p>
                         </div>
 
@@ -146,9 +162,9 @@
                     </form>
                 </div>
                 <div
-                    class="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-1/2 mb-12 md:mb-0 md:block hidden">
+                    class="flex items-center shrink-0 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-1/2 mb-12 md:mb-0 md:block hidden">
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-                        class="w-full" alt="Sample image" />
+                        class="" alt="Sample image" />
                 </div>
 
             </div>

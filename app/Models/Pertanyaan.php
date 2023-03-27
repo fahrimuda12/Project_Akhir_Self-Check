@@ -74,26 +74,4 @@ class Pertanyaan extends Model
             },
         );
     }
-
-    // protected function mergeRule(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: function () {
-    //             $opsi_1 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_1)->first();
-    //             $opsi_2 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_2)->first();
-    //             $opsi_3 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_3)->first();
-    //             $opsi_4 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_4)->first();
-    //             $opsi_5 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_5)->first();
-    //             $opsi_6 = SkalarCF::select('bobot_nilai')->where('kode_skalar', $this->opsi_6)->first();
-    //             $opsi = array($opsi_1, $opsi_2, $opsi_3, $opsi_4, $opsi_5, $opsi_6);
-    //             return $opsi;
-    //             // $kode = substr($this->kode_skalar, 0, 2);
-    //             // if ($kode == "KS") {
-    //             //     return 'pilgan';
-    //             // } else {
-    //             //     return 'isian';
-    //             // }
-    //         },
-    //     );
-    // }
 }

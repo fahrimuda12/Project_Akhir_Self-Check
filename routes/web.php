@@ -48,12 +48,13 @@ Route::name('konsul.')->middleware('auth')->prefix('konsul')->group(function () 
 Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/kelola-data', [AdminController::class, 'indexKelola'])->name('kelola-data');
-    Route::get('/Kelola-data/penyakit/tambah', [PenyakitController::class, 'create'])->name('kelola-data.tambah-penyakit');
-    Route::post('/Kelola-data/penyakit/tambah', [PenyakitController::class, 'storePenyakit'])->name('kelola-data.tambah-penyakit');
-    Route::get('/Kelola-data/penyakit/edit/{id}', [PenyakitController::class, 'edit'])->name('kelola-data.edit-penyakit');
-    Route::get('/Kelola-data/gejala/tambah', [GejalaController::class, 'create'])->name('kelola-data.tambah-gejala');
-    Route::post('/Kelola-data/gejala/tambah', [GejalaController::class, 'storePenyakit'])->name('kelola-data.tambah-gejala');
-    Route::get('/Kelola-data/gejala/edit/{id}', [GejalaController::class, 'edit'])->name('kelola-data.edit-gejala');
+    // Route::get('/Kelola-data/penyakit/tambah', [PenyakitController::class, 'create'])->name('kelola-data.tambah-penyakit');
+    // Route::post('/Kelola-data/penyakit/tambah', [PenyakitController::class, 'storePenyakit'])->name('kelola-data.tambah-penyakit');
+    // Route::get('/Kelola-data/penyakit/edit/{id}', [PenyakitController::class, 'edit'])->name('kelola-data.edit-penyakit');
+    // Route::get('/Kelola-data/gejala/tambah', [GejalaController::class, 'create'])->name('kelola-data.tambah-gejala');
+    // Route::post('/Kelola-data/gejala/tambah', [GejalaController::class, 'store'])->name('kelola-data.tambah-gejala');
+    // Route::get('/Kelola-data/gejala/edit/{id}', [GejalaController::class, 'edit'])->name('kelola-data.edit-gejala');
+    // Route::post('/Kelola-data/gejala/edit/update', [GejalaController::class, 'edit'])->name('kelola-data.edit-gejala.update');
     Route::get('/kelola-pengguna', [AdminController::class, 'indexPengguna'])->name('kelola-pengguna');
     Route::get('/kelola-pengguna/user/tambah', [AdminController::class, 'createPengguna'])->name('kelola-pengguna.tambah-user');
     Route::post('/kelola-pengguna/user/tambah', [AdminController::class, 'storePengguna'])->name('kelola-pengguna.tambah-user.post');
@@ -67,6 +68,21 @@ Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function
 
     // API Sementara
     Route::get('/api/rule', [AdminController::class, 'apiRule']);
+});
+
+Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function () {
+    Route::get('/gejala', [GejalaController::class, 'index'])->name('kelola-data.gejala');
+    Route::get('/gejala/tambah', [GejalaController::class, 'create'])->name('kelola-data.tambah-gejala');
+    Route::post('/gejala/tambah', [GejalaController::class, 'store'])->name('kelola-data.tambah-gejala');
+    Route::get('/gejala/edit/{id}', [GejalaController::class, 'edit'])->name('kelola-data.edit-gejala');
+    Route::post('/gejala/edit/update', [GejalaController::class, 'edit'])->name('kelola-data.edit-gejala.update');
+});
+
+Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function () {
+    Route::get('/penyakit', [PenyakitController::class, 'index'])->name('kelola-data.penyakit');
+    Route::get('/penyakit/tambah', [PenyakitController::class, 'create'])->name('kelola-data.tambah-penyakit');
+    Route::post('/penyakit/tambah', [PenyakitController::class, 'storePenyakit'])->name('kelola-data.tambah-penyakit');
+    Route::get('/penyakit/edit/{id}', [PenyakitController::class, 'edit'])->name('kelola-data.edit-penyakit');
 });
 
 Route::name('pakar.')->middleware('auth:pakar')->prefix('pakar')->group(function () {
