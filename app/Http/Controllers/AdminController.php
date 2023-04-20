@@ -26,10 +26,17 @@ class AdminController extends Controller
 
     public function indexKelola()
     {
-        $disease = Penyakit::all();
+        $disease = Penyakit::with('gejala')->get();
+        $penyakit = Penyakit::all();
+        // dd($disease);
+        $query = Penyakit::select('*')
+            ->join('rule', 'rule.kode_penyakit', '=', 'penyakit.kode_penyakit')
+            ->join('gejala', 'gejala.kode_gejala', '=', 'rule.kode_gejala')->get();
         $gejala = Gejala::all();
         $rule = Rule::paginate(10);
         $skalar = SkalarCF::all();
+
+        // dd($disease[0]['gejala'][0]['gejala']);
         return view('admin/index-data', [
             'title' => 'Kelola Data',
             'diseases' => $disease,
@@ -215,5 +222,16 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    // api
+    public function apiRule()
+    {
+        $query = Penyakit::select('*')
+            ->join('rule', 'rule.kode_penyakit', '=', 'penyakit.kode_penyakit')
+            ->join('gejala', 'gejala.kode_gejala', '=', 'rule.kode_gejala')->get();
+        // dd(response()->json($query));
+        return response()->json($query);
     }
 }

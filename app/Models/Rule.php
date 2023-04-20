@@ -9,4 +9,5 @@ class Rule extends Model
 {
     use HasFactory;
     protected $table = 'rule';
+    public $timestamps = false;
 }

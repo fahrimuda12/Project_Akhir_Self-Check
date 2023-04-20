@@ -12,7 +12,7 @@
 <body>
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5  dark:bg-gray-900">
         <div class="container flex flex-wrap items-center justify-between mx-auto">
-            <a href="https://flowbite.com/" class="flex items-center">
+            <a href="/" class="flex items-center">
                 {{-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" /> --}}
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">PENSclinic</span>
             </a>
@@ -77,8 +77,33 @@
     </nav>
 
     @yield('content')
+
     <script src="https://kit.fontawesome.com/c7aacba508.js" crossorigin="anonymous"></script>
     <script src={{ asset('assets/js/flowbite.min.js') }} type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.number-input').inputmask("99.9.9.999.9.99.999999");
+        });
+    </script>
+
+    {{-- <script>
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        const numberInput = document.querySelector('.number-input');
+
+        numberInput.addEventListener('blur', (event) => {
+            const num = event.target.value;
+            const formattedNum = formatNumber(num);
+            event.target.value = formattedNum;
+        });
+    </script> --}}
 </body>
+
 
 </html>
