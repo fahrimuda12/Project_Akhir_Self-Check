@@ -33,7 +33,7 @@
             </li> --}}
             <li class="pb-5 pt-5">
                 <div class="flex flex-col justify-center items-center text-center align-content-center">
-                    <img class="rounded-full" width="90" height="90" src="https://picsum.photos/90/90"
+                    <img class="rounded-full" width="90" height="90" src={{ asset('images/admin-profile.png') }}
                         alt="">
                     <p>{{ Auth::guard('admin')->user()->nama_pegawai }}</p>
                     <p>{{ Auth::guard('admin')->user()->email }}</p>
@@ -99,10 +99,6 @@
                     <li>
                         <a href="{{ route('admin.kelola-data.gejala') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gejala</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>
                     </li>
                 </ul>
             </li>

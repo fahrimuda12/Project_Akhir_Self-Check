@@ -22,7 +22,7 @@ class Penyakit extends Model
 
     public function gejala(): BelongsToMany
     {
-        return $this->belongsToMany(Gejala::class, 'rule', 'kode_penyakit', 'kode_gejala');
+        return $this->belongsToMany(Gejala::class, 'rule', 'kode_penyakit', 'kode_gejala')->withPivot('nilai_cf');
     }
 
     public function rule(): HasMany

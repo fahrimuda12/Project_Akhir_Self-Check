@@ -13,7 +13,7 @@ class PenyakitTable extends Table
     public  function __construct()
     {
         $this->model = 'penyakit';
-        $this->route = ['edit' => 'admin.kelola-data.edit-penyakit', 'delete' => 'admin.kelola-data.edit-penyakit'];
+        $this->route = ['edit' => 'admin.kelola-data.edit-penyakit', 'delete' => 'admin.kelola-data.delete-penyakit'];
     }
 
     public function query(): Builder

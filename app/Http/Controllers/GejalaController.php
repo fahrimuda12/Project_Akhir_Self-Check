@@ -100,7 +100,7 @@ class GejalaController extends Controller
         if ($request->skalarOption == 'pilgan') {
             Gejala::create([
                 'kode_gejala' => $kode_gejala,
-                'gejala' => $request->gejala,
+                'gejala' => $request->nama,
                 'nip_dokter' => '197107081999032001',
             ]);
             Pertanyaan::create([
@@ -303,6 +303,8 @@ class GejalaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $gejala = Gejala::where('kode_gejala', $id)->delete();
+        $pertanyaan = Pertanyaan::where('kode_gejala', $id)->delete();
+        return redirect()->route('admin.kelola-data')->with('success', 'Data Gejala Berhasil Dihapus');
     }
 }

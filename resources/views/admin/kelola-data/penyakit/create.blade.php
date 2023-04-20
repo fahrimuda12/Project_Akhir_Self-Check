@@ -1,6 +1,6 @@
 @extends('admin/app')
 @section('content')
-    @extends('admin/sidebar')
+    {{-- @extends('admin/sidebar') --}}
     <div class="bg-white rounded-lg py-8 px-4 sm:ml-64">
         <form action="{{ route('admin.kelola-data.tambah-penyakit') }}" method="POST">
             @csrf
@@ -114,100 +114,177 @@
         </form>
     </div>
 
-    <script type='text/javascript'>
-        let i = 2;
+    @push('select2')
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.group-select').find("select").select2({
+                    placeholder: "Pilih Gejala",
+                    allowClear: true,
+                    // minimumInputLength: 3,
+                    tags: true,
+                    createTag: function(params) {
+                        var term = $.trim(params.term);
 
-        function addFields() {
-            // // Generate a dynamic number of inputs
-            // var number = document.getElementById("member").value;
-            // Get the element where the inputs will be added to
-            // var container = document.getElementById("input-gejala");
-            // console.log('click');
+                        if (term === '') {
+                            return null;
+                        } else {
+                            console.log(term);
+                        }
 
-            // Proses Clone select gejala
-            // Get Index select
-            let indexGejala = $('.group-select.select2-gejala').length;
+                        return {
+                            id: term,
+                            text: term,
+                            newTag: true // add additional parameters
+                        }
 
-            // Get Index Keyakinan
-            let indexKeyakinan = $('.group-select #selectNilai').length;
+                    }
+                });
 
-            $('.group-select:nth-child(-n+2)').find("select").select2("destroy");
-            // exit();
-            let selectClone = $('.group-select:nth-child(-n+2)').clone();
-            // console.log($('.group-select:nth-child(-n+2)').length);
-            // console.log($('.group-select', 0, 1).html());
-            // // console.log(selectClone.find('.label-gejala').text("Gejala " + (indexGejala + 1)).html());
-            // exit();
-            selectClone.find('.label-gejala').text("Gejala " + (indexGejala + 1));
-            // selectClone.find('#selectNilai label').text("Gejala " + (indexKeyakinan + 1));
-            // let data = [
-            //     @forelse ($gejala as $data)
-            //         [`<option value = ` + "{{ $data->gejala }}" + `>` + "{{ $data->gejala }}" + `</option>`],
-            //     @empty
-            //         [`<option> Lainnya </option>`],
-            //     @endforelse
-            // ]
-            // i++;
-            // $("#input-gejala").append(`<div class="relative z-0 w-full mb-6 group group-select">
+                $('template .group-select').find("select").select2({
+                    placeholder: "Pilih Gejala",
+                    allowClear: true,
+                    // minimumInputLength: 3,
+                    tags: true,
+                    createTag: function(params) {
+                        var term = $.trim(params.term);
+
+                        if (term === '') {
+                            return null;
+                        } else {
+                            console.log(term);
+                        }
+
+                        return {
+                            id: term,
+                            text: term,
+                            newTag: true // add additional parameters
+                        }
+
+                    }
+                });
+
+                // $('.group-select-nilai').find("select").select2({
+                //     placeholder: "Masukkan nilai",
+                //     allowClear: true,
+                //     tags: false
+                //     // minimumInputLength: 3,
+                // });
+
+                // $('.group-select').find("select")
+
+                // $('.select2-gejala-2').select2({
+                //     placeholder: "Pilih Gejala",
+                //     allowClear: true,
+                // });
+
+                // $('.select2-gejala').each(function() {
+                //     $(this).select2({
+                //         placeholder: "Pilih Gejala",
+                //         allowClear: true,
+                //     })
+                // });
+                $(".select2").css("width", "");
+            });
+        </script>
+    @endpush
+    @push('select2-dynamic')
+        <script type='text/javascript'>
+            let i = 2;
+
+            function addFields() {
+                // // Generate a dynamic number of inputs
+                // var number = document.getElementById("member").value;
+                // Get the element where the inputs will be added to
+                // var container = document.getElementById("input-gejala");
+                // console.log('click');
+
+                // Proses Clone select gejala
+                // Get Index select
+                let indexGejala = $('.group-select.select2-gejala').length;
+
+                // Get Index Keyakinan
+                let indexKeyakinan = $('.group-select #selectNilai').length;
+
+                $('.group-select:nth-child(-n+2)').find("select").select2("destroy");
+                // exit();
+                let selectClone = $('.group-select:nth-child(-n+2)').clone();
+                // console.log($('.group-select:nth-child(-n+2)').length);
+                // console.log($('.group-select', 0, 1).html());
+                // // console.log(selectClone.find('.label-gejala').text("Gejala " + (indexGejala + 1)).html());
+                // exit();
+                selectClone.find('.label-gejala').text("Gejala " + (indexGejala + 1));
+                // selectClone.find('#selectNilai label').text("Gejala " + (indexKeyakinan + 1));
+                // let data = [
+                //     @forelse ($gejala as $data)
+                //         [`<option value = ` + "{{ $data->gejala }}" + `>` + "{{ $data->gejala }}" + `</option>`],
+                //     @empty
+                //         [`<option> Lainnya </option>`],
+                //     @endforelse
+                // ]
+                // i++;
+                // $("#input-gejala").append(`<div class="relative z-0 w-full mb-6 group group-select">
         //         <select name="gejala[]" id="floating_gejala"
         //             class="block py-2.5 px-0 w-full capitalize text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
         //             <option>Gejala` + i + `</option> ` +
-            //     data +
-            //     `<option>Lainnya</option>
+                //     data +
+                //     `<option>Lainnya</option>
         //         </select>
         //         <label for="floating_gejala"
         //             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Gejala
         //             ` + i + `</label>
         //     </div>`);
-            selectClone.appendTo('#input-gejala');
-            $('.group-select').find("select").select2({
-                placeholder: "Pilih Gejala",
-                allowClear: true,
-                // minimumInputLength: 3
-                tags: true,
-                createTag: function(params) {
-                    var term = $.trim(params.term);
+                selectClone.appendTo('#input-gejala');
+                $('.group-select').find("select").select2({
+                    placeholder: "Pilih Gejala",
+                    allowClear: true,
+                    // minimumInputLength: 3
+                    tags: true,
+                    createTag: function(params) {
+                        var term = $.trim(params.term);
 
-                    if (term === '') {
-                        return null;
-                    } else {
-                        console.log(term);
+                        if (term === '') {
+                            return null;
+                        } else {
+                            console.log(term);
+                        }
+
+                        return {
+                            id: term,
+                            text: term,
+                            newTag: true // add additional parameters
+                        }
+
                     }
+                });
+                $(".select2").css("width", "");
+                // Remove every children it had before
+                // while (container.hasChildNodes()) {
+                //     container.removeChild(container.lastChild);
+                // }
+                // for (i = 0; i < number; i++) {
+                //     // Append a node with a random text
+                //     container.appendChild(document.createTextNode("Member " + (i + 1)));
+                //     // Create an <input> element, set its type and name attributes
+                //     var input = document.createElement("input");
+                //     input.type = "text";
+                //     input.name = "member" + i;
+                //     container.appendChild(input);
+                //     // Append a line break
+                //     container.appendChild(document.createElement("br"));
+                // }
+                // container.appendChild(document.createTextNode("Member " + (i + 1)));
+                // // Create an <input> element, set its type and name attributes
+                // var input = document.createElement("input");
+                // input.type = "text";
+                // input.name = "member" + i;
+                // container.appendChild();
+                // Append a line break
+                // container.appendChild(document.createElement("br"));
+            }
+        </script>
+    @endpush
 
-                    return {
-                        id: term,
-                        text: term,
-                        newTag: true // add additional parameters
-                    }
 
-                }
-            });
-            $(".select2").css("width", "");
-            // Remove every children it had before
-            // while (container.hasChildNodes()) {
-            //     container.removeChild(container.lastChild);
-            // }
-            // for (i = 0; i < number; i++) {
-            //     // Append a node with a random text
-            //     container.appendChild(document.createTextNode("Member " + (i + 1)));
-            //     // Create an <input> element, set its type and name attributes
-            //     var input = document.createElement("input");
-            //     input.type = "text";
-            //     input.name = "member" + i;
-            //     container.appendChild(input);
-            //     // Append a line break
-            //     container.appendChild(document.createElement("br"));
-            // }
-            // container.appendChild(document.createTextNode("Member " + (i + 1)));
-            // // Create an <input> element, set its type and name attributes
-            // var input = document.createElement("input");
-            // input.type = "text";
-            // input.name = "member" + i;
-            // container.appendChild();
-            // Append a line break
-            // container.appendChild(document.createElement("br"));
-        }
-    </script>
 
     <script>
         let inputGejala = document.createElement("input");

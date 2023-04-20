@@ -9,6 +9,7 @@ use App\Models\Rule;
 use App\Models\SkalarCF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class PenyakitController extends Controller
@@ -37,7 +38,7 @@ class PenyakitController extends Controller
     public function create()
     {
         $gejala = Gejala::all();
-        $nilai = SkalarCF::all();
+        $nilai = SkalarCF::where('kode_skalar', 'LIKE', 'KS%')->get();
         return view('admin/kelola-data/penyakit/create', [
             'title' => 'Tambah Penyakit',
             'gejala' => $gejala,
@@ -75,7 +76,11 @@ class PenyakitController extends Controller
                     'nip_dokter' => '197107081999032001',
                     'gejala' => $request->gejala['kode'][$i],
                 ]);
-                $gejala->pertanyaan()->attach($kode_gejala);
+                // $gejala->pertanyaan()->create([
+                //     'kode_gejala' => $kode_gejala,
+                //     'pertanyaan' => null,
+
+                // ]);
                 $penyakit->gejala()->attach($kode_gejala);
                 Rule::where('kode_penyakit', $kode)->where('kode_gejala', $kode_gejala)->update([
                     'nilai_cf' => $request->gejala['nilai'][$i],
@@ -87,7 +92,7 @@ class PenyakitController extends Controller
             return redirect()->back()->withInput($request->all());
         }
 
-        return redirect()->route('admin.kelola-data.tambah-penyakit')->withSuccess('Data berhasil ditambahkan');
+        return redirect()->route('admin.kelola-data.penyakit')->withSuccess('Data berhasil ditambahkan');
     }
 
     /**
@@ -120,8 +125,16 @@ class PenyakitController extends Controller
      */
     public function edit($id)
     {
-        return view('admin/kelola-data/penyakit/create', [
+        $id = Crypt::decrypt($id);
+        $penyakit = Penyakit::with('gejala')->with('rule')->where('kode_penyakit', $id)->first();
+        // dd($penyakit->rule());
+        $gejala = Gejala::all();
+        $nilai = SkalarCF::where('kode_skalar', 'LIKE', 'KS%')->get();
+        return view('admin/kelola-data/penyakit/edit', [
             'title' => 'Edit Penyakit',
+            'penyakit' => $penyakit,
+            'gejala' => $gejala,
+            'nilai' => $nilai
         ]);
     }
 
@@ -134,7 +147,30 @@ class PenyakitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $id = Crypt::decrypt($id);
+        $this->validate($request, [
+            'nama' => 'required',
+            'gejala' => 'required',
+        ]);
+
+        // dd(Auth::guard('admin')->user()->nip);
+        $penyakit = Penyakit::where('kode_penyakit', $id)->first();
+        // dd($request->gejala);
+        $penyakit->nama_penyakit = $request->nama;
+        // $penyakit->nip_dokter = Auth::guard('admin')->user()->nip;
+        $penyakit->nip_dokter = '197107081999032001';
+        $penyakit->save();
+        for ($i = 0; $i < count($request->gejala['kode']); $i++) {
+            $penyakit->gejala()->updateExistingPivot($request->gejala['kode'][$i], [
+                'nilai_cf' => $request->gejala['nilai'][$i],
+            ]);
+        }
+
+        if (!$penyakit) {
+            return redirect()->back()->withInput($request->all());
+        }
+        return redirect()->route('admin.kelola-data.penyakit')->withSuccess('Data berhasil diubah');
     }
 
     /**
@@ -143,8 +179,19 @@ class PenyakitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Penyakit $penyakit)
     {
-        //
+        // dd($penyakit);
+        // make destroy penyakit
+        // $id = Crypt::decrypt($id);
+        $penyakit->delete();
+
+        //check data has deleted and redirect witerror
+        if (!$penyakit) {
+            return redirect()->back()->withError('Data gagal dihapus');
+        }
+        // $gejala = Rule::where('kode_penyakit', '=', $id)->delete();
+        // $penyakit->delete();
+        return redirect()->route('admin.kelola-data.penyakit')->withSuccess('Data berhasil dihapus');
     }
 }

@@ -1,9 +1,22 @@
 @extends('admin/app')
 @section('content')
     @extends('admin/sidebar')
-    <div class="py-8 px-4 sm:ml-64">
+    <div class="bg-white rounded-lg py-8 px-4 sm:ml-64">
         <form action="" method="POST">
             @csrf
+            <div class="relative w-full mb-2 group group-select md:mt-0 mt-2 ">
+                <select name="gejala[nilai][]" data-placeholder="Seberapa yakin dengan gejalanya ?"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                    <option class="">Pilih Role</option>
+                    <option value="1">User</option>
+                    <option value="2">Pakar</option>
+                    <option value="3">Admin</option>
+                </select>
+                <label for="floating_gejala"
+                    class="peer-focus:font-medium
+                    absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Skalar
+                    Keyakinan</label>
+            </div>
             <div class="relative z-0 w-full mb-6 group">
                 <input type="text" name="kode" id="floating_kode"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"

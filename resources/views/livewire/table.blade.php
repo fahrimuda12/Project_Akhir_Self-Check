@@ -119,10 +119,16 @@
                     @endforeach
                     <td>
                         <div class="flex flex-col lg:flex-row items-center px-6 py-4 space-x-3">
-                            <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                href="{{ route($route['edit'], ['id' => Illuminate\Support\Facades\Crypt::encrypt($row[$this->columns()[0]->key])]) }}">Edit</a>
-                            <a class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                                href="{{ route($route['delete'], ['id' => $row[$this->columns()[0]->key]]) }}">Remove</a>
+                            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+                                action="{{ route($route['delete'], $row[$this->columns()[0]->key]) }}" method="POST">
+                                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                    href="{{ route($route['edit'], Illuminate\Support\Facades\Crypt::encrypt($row[$this->columns()[0]->key])) }}">Edit</a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="font-medium text-red-600 dark:text-red-500 hover:underline">Hapus</button>
+
+                            </form>
                         </div>
                     </td>
                 </tr>

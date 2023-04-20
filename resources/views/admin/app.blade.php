@@ -31,86 +31,14 @@
         </div>
     </section>
 
-    {{-- <script src="https://kit.fontawesome.com/c7aacba508.js" crossorigin="anonymous"></script> --}}
     <script src={{ asset('assets/js/jquery-3.6.3.min.js') }}></script>
     <script src={{ asset('assets/js/jquery-inputmask-5.0.6.min.js') }}></script>
     <script src={{ asset('assets/js/fontawesome.js') }} type="text/javascript"></script>
     <script src={{ asset('assets/js/flowbite.min.js') }} type="text/javascript"></script>
     <script src={{ asset('assets/js/select2.min.js') }} type="text/javascript"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.group-select').find("select").select2({
-                placeholder: "Pilih Gejala",
-                allowClear: true,
-                // minimumInputLength: 3,
-                tags: true,
-                createTag: function(params) {
-                    var term = $.trim(params.term);
-
-                    if (term === '') {
-                        return null;
-                    } else {
-                        console.log(term);
-                    }
-
-                    return {
-                        id: term,
-                        text: term,
-                        newTag: true // add additional parameters
-                    }
-
-                }
-            });
-
-            $('template .group-select').find("select").select2({
-                placeholder: "Pilih Gejala",
-                allowClear: true,
-                // minimumInputLength: 3,
-                tags: true,
-                createTag: function(params) {
-                    var term = $.trim(params.term);
-
-                    if (term === '') {
-                        return null;
-                    } else {
-                        console.log(term);
-                    }
-
-                    return {
-                        id: term,
-                        text: term,
-                        newTag: true // add additional parameters
-                    }
-
-                }
-            });
-
-            // $('.group-select-nilai').find("select").select2({
-            //     placeholder: "Masukkan nilai",
-            //     allowClear: true,
-            //     tags: false
-            //     // minimumInputLength: 3,
-            // });
-
-            // $('.group-select').find("select")
-
-            // $('.select2-gejala-2').select2({
-            //     placeholder: "Pilih Gejala",
-            //     allowClear: true,
-            // });
-
-            // $('.select2-gejala').each(function() {
-            //     $(this).select2({
-            //         placeholder: "Pilih Gejala",
-            //         allowClear: true,
-            //     })
-            // });
-            $(".select2").css("width", "");
-        });
-    </script>
-
-
+    @stack('select2')
+    @stack('select2-dynamic')
     <script>
         console.log($('input[name="skalarOption"]:checked').val() == "pilgan");
         if ($('input[name="skalarOption"]:checked').val() == "pilgan") {
@@ -161,6 +89,7 @@
             });
         });
     </script>
+    @stack('datatable-pengguna')
 
     {{-- <script>
         $(document).ready(function() {

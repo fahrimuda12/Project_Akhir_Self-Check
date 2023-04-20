@@ -41,6 +41,11 @@ class Pertanyaan extends Model
         }
     }
 
+    public function gejala()
+    {
+        return $this->hasOne(Gejala::class, 'kode_gejala', 'kode_gejala');
+    }
+
     protected function mergeBobot(): Attribute
     {
         return Attribute::make(

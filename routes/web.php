@@ -73,16 +73,19 @@ Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function
 Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/gejala', [GejalaController::class, 'index'])->name('kelola-data.gejala');
     Route::get('/gejala/tambah', [GejalaController::class, 'create'])->name('kelola-data.tambah-gejala');
-    Route::post('/gejala/tambah', [GejalaController::class, 'store'])->name('kelola-data.tambah-gejala');
+    Route::post('/gejala/tambah', [GejalaController::class, 'store'])->name('kelola-data.tambah-gejala.create');
     Route::get('/gejala/edit/{id}', [GejalaController::class, 'edit'])->name('kelola-data.edit-gejala');
-    Route::post('/gejala/edit/update', [GejalaController::class, 'edit'])->name('kelola-data.edit-gejala.update');
+    Route::post('/gejala/edit/update', [GejalaController::class, 'update'])->name('kelola-data.edit-gejala.update');
+    Route::delete('/gejala/delete/{id}', [GejalaController::class, 'destroy'])->name('kelola-data.delete-gejala');
 });
 
 Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/penyakit', [PenyakitController::class, 'index'])->name('kelola-data.penyakit');
     Route::get('/penyakit/tambah', [PenyakitController::class, 'create'])->name('kelola-data.tambah-penyakit');
-    Route::post('/penyakit/tambah', [PenyakitController::class, 'storePenyakit'])->name('kelola-data.tambah-penyakit');
+    Route::post('/penyakit/tambah', [PenyakitController::class, 'storePenyakit'])->name('kelola-data.tambah-penyakit.create');
     Route::get('/penyakit/edit/{id}', [PenyakitController::class, 'edit'])->name('kelola-data.edit-penyakit');
+    Route::post('/penyakit/edit/update/{id}', [PenyakitController::class, 'update'])->name('kelola-data.edit-penyakit.update');
+    Route::delete('/penyakit/delete/{penyakit}', [PenyakitController::class, 'destroy'])->name('kelola-data.delete-penyakit');
 });
 
 Route::name('pakar.')->middleware('auth:pakar')->prefix('pakar')->group(function () {
