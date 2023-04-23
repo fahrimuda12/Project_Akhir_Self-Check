@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Gejala;
 use App\Models\Pakar;
 use App\Models\Penyakit;
 use App\Models\Rule;
 use App\Models\SkalarCF;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -50,10 +52,12 @@ class AdminController extends Controller
     {
         $user = User::all();
         $dokter = Pakar::all();
+        $admin = Admin::all();
         return view('admin/kelola-pengguna/index', [
             'title' => 'Kelola Pengguna',
             'users' => $user,
-            'dokter' => $dokter
+            'dokter' => $dokter,
+            'admin' => $admin
         ]);
     }
 
@@ -89,34 +93,64 @@ class AdminController extends Controller
     public function storePengguna(Request $request)
     {
         $this->validate($request, [
-            'nrp' => 'required|min:3|max:15|unique:user',
+            'role' => 'required',
+            'kode' => 'required|min:1|max:20|unique:user,nrp|unique:admin,nip|unique:pakar,nip_dokter',
             'nama' => 'required',
             'jenkel' => 'required',
-            'umur' => 'required|integer|max:100',
-            'alamat' => 'required',
-            'hp' => 'required|max:12',
-            'email' => 'required|email|unique:user',
+            // 'umur' => 'required|integer|max:100',
+            // 'alamat' => 'required',
+            'hp' => 'max:12',
+            'email' => 'required|email|unique:user|unique:admin|unique:pakar',
             'password' => 'required|min:6',
-            // 'password_confirmation' => 'required|same:password',
+            'password_confirmation' => 'required|same:password',
+            // 'address' => 'required'
+        ], [
+            'email.unique' => 'Email sudah terdaftar!',
+            'kode.required' => 'The NIP/NRP field is required.',
+            'kode.unique' => 'The NIP/NRP has already been taken.'
         ]);
         // dd($request->all());
         //save
-        $user = User::create([
-            'nrp' => $request->nrp,
-            'nama' => $request->nama,
-            'jenkel' => $request->jenkel,
-            'umur' => $request->umur,
-            'alamat' => $request->alamat,
-            'no_hp' => $request->hp,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
+        if ($request->role == 1) {
+            $result = User::create([
+                'nrp' => $request->kode,
+                'nama' => $request->nama,
+                'jenkel' => $request->address,
+                'umur' => $request->umur,
+                'alamat' => $request->alamat,
+                'no_hp' => $request->hp,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+        } else if ($request->role == 2) {
+            // dd("masuk");
+            $result = Pakar::create([
+                'nip_dokter' => $request->kode,
+                'nama_dokter' => $request->nama,
+                'alamat' => $request->address,
+                'no_hp' => $request->hp,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+        } else if ($request->role == 3) {
+            $result = Admin::create([
+                'nip' => $request->kode,
+                'nama_pegawai' => $request->nama,
+                'alamat' => $request->address,
+                'no_hp' => $request->hp,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+        } else {
+            return redirect()->back()->withErrors(['role' => 'Role tidak ditemukan!']);
+        }
+
         //handling error
-        if (!$user) {
+        if (!$result) {
             return redirect()->back()->withInput($request->all());
         }
 
-        return redirect()->route('admin.pengguna');
+        return redirect()->route('admin.kelola-pengguna');
     }
 
     /**
@@ -143,10 +177,32 @@ class AdminController extends Controller
 
     public function editPengguna($id)
     {
-        $users = User::find($id);
+        $id = decrypt($id);
+        $users = User::findOr($id, function () use ($id) {
+            return Pakar::findOr($id, function () use ($id) {
+                return Admin::findOrFail($id);
+            });
+        });
+        $kode = 0;
+        if ($users->getTable() == 'user') {
+            $kode = $users->nrp;
+            $role = 1;
+        } else if ($users->getTable() == 'pakar') {
+            $kode = $users->nip_dokter;
+            $users->nama = $users->nama_dokter;
+            $role = 2;
+        } else {
+            $kode = $users->nip;
+            $users->nama = $users->nama_pegawai;
+            $role = 3;
+        }
+
+
+        // dd(isset($users->nip_dokter));
+        // dd($users->getTable());
         $title = 'Edit User';
         // dd($users);
-        return view('admin/kelola-pengguna/edit-user', compact('title', 'users'));
+        return view('admin/kelola-pengguna/user/edit-user', compact('title', 'users', 'kode', 'role'));
     }
 
     /**
@@ -163,37 +219,50 @@ class AdminController extends Controller
 
     public function updatePengguna(Request $request, $id)
     {
-        // dd($request->all());
+        // dd($model);
         //validation
         $this->validate($request, [
             'nama' => 'required',
-            'jenkel' => 'required',
-            'umur' => 'required|integer|max:100',
+            // 'jenkel' => 'required',
+            // 'umur' => 'required|integer|max:100',
             'alamat' => 'required',
-            'hp' => 'required|max:12',
+            'hp' => 'required|max:13',
         ]);
         // dd('berhasil validasi 1');
-        $user = User::find($id);
-        if ($request->nrp != $user->nrp) {
-            // dd('berbeda');
+        $user = User::findOr($id, function () use ($id) {
+            return Pakar::findOr($id, function () use ($id) {
+                return Admin::findOrFail($id);
+            });
+        });
+        if ($request->nrp != $user->nrp && $request->nrp != $user->nip && $request->nrp != $user->nip_dokter) {
+            dd($request->nrp, $user->nip_dokter);
+            dd('berbeda');
             $this->validate($request, [
-                'nrp' => 'required|min:3|max:15|unique:user',
+                'kode' => 'required|min:1|max:20|unique:user,nrp|unique:admin,nip|unique:pakar,nip_dokter',
             ]);
         }
         if ($request->email != $user->email) {
             // dd('berbeda');
             $this->validate($request, [
-                'email' => 'required|email|unique:user',
+                'email' => 'required|email|unique:user|unique:admin|unique:pakar',
             ]);
         }
 
+        $kode = $request->nrp;
 
-
-        // dd('berhasil');
-        $user->nrp = $request->nrp;
-        $user->nama = $request->nama;
-        $user->jenkel = $request->jenkel;
-        $user->umur = $request->umur;
+        // dd(is_null($user->nrp));
+        if ($user->getTable() == 'user') {
+            $user->nrp = $request->nrp;
+            $user->nama = $request->nama;
+            $user->jenkel = $request->jenkel;
+            $user->umur = $request->umur;
+        } else if ($user->getTable() == 'admin') {
+            $user->nip = $request->nrp;
+            $user->nama_pegawai = $request->nama;
+        } else if ($user->getTable() == 'pakar') {
+            $user->nip_dokter = $request->nrp;
+            $user->nama_dokter = $request->nama;
+        }
         $user->alamat = $request->alamat;
         $user->email = $request->email;
         if ($request->password !== null) {
@@ -210,7 +279,7 @@ class AdminController extends Controller
             return redirect()->back()->withInput($request->all());
         }
 
-        return redirect()->route('admin.kelola-pengguna.update-user', ['id' => $user->nrp])->withSuccess('Berhasil Diupdate');
+        return redirect()->route('admin.kelola-pengguna.edit-user', ['id' => encrypt($kode)])->withSuccess('Berhasil Diupdate');
     }
 
     /**
@@ -221,7 +290,15 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id = decrypt($id);
+        $user = User::findOr($id, function () use ($id) {
+            return Pakar::findOr($id, function () use ($id) {
+                return Admin::findOrFail($id);
+            });
+        });
+
+        $user->delete();
+        return redirect()->route('admin.kelola-pengguna')->withSuccess('Berhasil Dihapus');
     }
 
 

@@ -48,18 +48,13 @@ Route::name('konsul.')->middleware('auth')->prefix('konsul')->group(function () 
 Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/kelola-data', [AdminController::class, 'indexKelola'])->name('kelola-data');
-    // Route::get('/Kelola-data/penyakit/tambah', [PenyakitController::class, 'create'])->name('kelola-data.tambah-penyakit');
-    // Route::post('/Kelola-data/penyakit/tambah', [PenyakitController::class, 'storePenyakit'])->name('kelola-data.tambah-penyakit');
-    // Route::get('/Kelola-data/penyakit/edit/{id}', [PenyakitController::class, 'edit'])->name('kelola-data.edit-penyakit');
-    // Route::get('/Kelola-data/gejala/tambah', [GejalaController::class, 'create'])->name('kelola-data.tambah-gejala');
-    // Route::post('/Kelola-data/gejala/tambah', [GejalaController::class, 'store'])->name('kelola-data.tambah-gejala');
-    // Route::get('/Kelola-data/gejala/edit/{id}', [GejalaController::class, 'edit'])->name('kelola-data.edit-gejala');
-    // Route::post('/Kelola-data/gejala/edit/update', [GejalaController::class, 'edit'])->name('kelola-data.edit-gejala.update');
     Route::get('/kelola-pengguna', [AdminController::class, 'indexPengguna'])->name('kelola-pengguna');
     Route::get('/kelola-pengguna/user/tambah', [AdminController::class, 'createPengguna'])->name('kelola-pengguna.tambah-user');
     Route::post('/kelola-pengguna/user/tambah', [AdminController::class, 'storePengguna'])->name('kelola-pengguna.tambah-user.post');
     Route::get('/kelola-pengguna/user/edit/{id}', [AdminController::class, 'editPengguna'])->name('kelola-pengguna.edit-user');
     Route::post('/kelola-pengguna/user/edit/{id}', [AdminController::class, 'updatePengguna'])->name('kelola-pengguna.update-user');
+    Route::get('/kelola-pengguna/user/delete/{id}', [AdminController::class, 'destroy'])->name('kelola-pengguna.delete-user');
+
     Route::get('/kelola-pengguna/dokter/tambah', [DokterController::class, 'create'])->name('kelola-pengguna.tambah-dokter');
     Route::post('/kelola-pengguna/dokter/tambah', [DokterController::class, 'store'])->name('kelola-pengguna.tambah-dokter.post');
     Route::get('/kelola-pengguna/dokter/edit/{id}', [DokterController::class, 'edit'])->name('kelola-pengguna.edit-dokter');
