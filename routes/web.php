@@ -65,7 +65,7 @@ Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function
     Route::get('/api/rule', [AdminController::class, 'apiRule']);
 });
 
-Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function () {
+Route::name('admin.')->middleware(['auth:pakar,admin'])->group(function () {
     Route::get('/gejala', [GejalaController::class, 'index'])->name('kelola-data.gejala');
     Route::get('/gejala/tambah', [GejalaController::class, 'create'])->name('kelola-data.tambah-gejala');
     Route::post('/gejala/tambah', [GejalaController::class, 'store'])->name('kelola-data.tambah-gejala.create');
@@ -74,7 +74,7 @@ Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function
     Route::delete('/gejala/delete/{id}', [GejalaController::class, 'destroy'])->name('kelola-data.delete-gejala');
 });
 
-Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function () {
+Route::name('admin.')->middleware(['auth:pakar,admin'])->group(function () {
     Route::get('/penyakit', [PenyakitController::class, 'index'])->name('kelola-data.penyakit');
     Route::get('/penyakit/tambah', [PenyakitController::class, 'create'])->name('kelola-data.tambah-penyakit');
     Route::post('/penyakit/tambah', [PenyakitController::class, 'storePenyakit'])->name('kelola-data.tambah-penyakit.create');
@@ -97,6 +97,11 @@ Route::name('pakar.')->middleware('auth:pakar')->prefix('pakar')->group(function
     Route::get('/gejala/edit/{id}', [PakarController::class, 'editGejala'])->name('gejala.edit');
 });
 
+
+Route::name('pakar.')->middleware('auth:pakar')->prefix('skalar')->group(function () {
+    Route::get('/', [PakarController::class, 'indexSkalar'])->name('skalar');
+    Route::get('/sorting/{kode}', [PakarController::class, 'sortingIndex'])->name('sorting');
+});
 
 // Route::name('get.')->prefix('get')->group(function () {
 //     Route::get('/gejala', [GejalaController::class, 'gejala'])->name('gejala');

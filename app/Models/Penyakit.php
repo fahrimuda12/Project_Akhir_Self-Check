@@ -25,6 +25,21 @@ class Penyakit extends Model
         return $this->belongsToMany(Gejala::class, 'rule', 'kode_penyakit', 'kode_gejala')->withPivot('nilai_cf');
     }
 
+    // public function gejala1(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Gejala::class, 'rule', 'kode_penyakit', 'kode_gejala')->withPivot('nilai_cf');
+    // }
+
+    // public function gejala2(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Gejala::class, 'rule', 'kode_penyakit', 'kode_gejala')->withPivot('nilai_cf');
+    // }
+
+    // public function gejala3(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Gejala::class, 'rule', 'kode_penyakit', 'kode_gejala')->wherePivot('nilai_cf', '=', 0.8)->withPivot('nilai_cf');
+    // }
+
     public function rule(): HasMany
     {
         return $this->hasMany(Rule::class, 'kode_penyakit');

@@ -348,6 +348,9 @@ class SelfCheckController extends Controller
 
     public function indexDiagnosa(Request $request)
     {
+        return view('konsul/diagnosa', [
+            'title' => 'Hasil Diagnosa'
+        ]);
         //Mengambil kode setiap penyakit
         $penyakit = Penyakit::pluck('kode_penyakit');
         $this->testMethod($penyakit, $request);

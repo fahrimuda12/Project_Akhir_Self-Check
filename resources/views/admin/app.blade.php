@@ -20,7 +20,13 @@
 
 <body class="bg-slate-100">
     {{-- This is login page --}}
-    @include('admin.sidebar')
+    @auth('admin')
+        @include('admin.sidebar')
+    @endauth
+    @auth('pakar')
+        @include('pakar.sidebar')
+    @endauth
+
     <section id="dashboard">
         <div class="h-full">
             <div class="container mx-auto my-auto pt-20 pb-4 ">
@@ -90,7 +96,7 @@
         });
     </script>
     @stack('datatable-pengguna')
-
+    @stack('scripts-chart')
     {{-- <script>
         $(document).ready(function() {
             // $('#example').DataTable({

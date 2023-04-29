@@ -1,6 +1,5 @@
 @extends('admin/app')
 @section('content')
-    @extends('admin/sidebar')
     <div class="bg-white rounded-lg py-8 px-4 sm:ml-64">
         <form action="{{ route('admin.kelola-data.tambah-gejala') }}" method="POST">
             @csrf

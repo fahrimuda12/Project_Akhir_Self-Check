@@ -65,18 +65,20 @@
         </div>
     </section>
     <section id="card-riwayat">
-        <div class="container mx-auto lg:mt-9">
+        <div class="container mx-auto lg:my-9">
             <h1 class="text-center font-bold text-2xl md:text-4xl lg:text-4xl py-8 lg:pb-4 md:py-4">Riwayat Kesehatan</h1>
             <div class="card rounded-2xl md:mx-4"style="background-color: #F6F8FD">
-                <div class="card-body lg:py-8 md:py-8">
-                    <div class="grid md:grid-rows-none md:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-1">
-                        <div class="flex justify-start mx-auto pt-4 md:pt-0 lg:pt-0">
+                <div class="card-body md:pb-8">
+                    <div
+                        class="flex flex-col md:flex-row items-center md:items-baseline justify-center md:gap-12 lg:gap-24">
+                        <div class="flex md:relative md:w-72 md:h-60 lg:w-96 lg:h-80 pt-4 md:pt-0 lg:pt-0">
                             {{-- <img src="https://img.icons8.com/ios/50/000000/medical-history.png" class="w-16 h-16" /> --}}
-                            <img src={{ asset('images/riwayat-kesehatan.png') }}
-                                class="w-48 h-40 lg:w-96 lg:h-80 md:w-72 md:h-60" alt="riwayat-kesehatan">
+                            <div class="md:absolute md:top-[2rem]">
+                                <img src={{ asset('images/dokter1.png') }} class="w-48 h-40 lg:w-96 lg:h-80 md:w-72 md:h-60"
+                                    alt="riwayat-kesehatan">
+                            </div>
                         </div>
-                        <div
-                            class="flex flex-col items-center md:items-start lg:items-start gap-4 md:gap-0 lg:gap-0 mb-4 md:mb-0 lg:mb-0">
+                        <div class="flex flex-col self-center items-center md:items-start gap-4 md:gap-10 mb-4 md:mb-0">
                             <h1 class="text-center md:text-start lg:text-start text-lg lg:text-5xl md:text-3xl  font-bold w-1/2 lg:w-96 md:w-72"
                                 style="color: #0C145A">
                                 Kamu belum
@@ -94,7 +96,7 @@
                 </div>
             </div>
         </div>
-        <div class="container mx-auto lg:mt-9">
+        {{-- <div class="container mx-auto lg:mt-9">
             <h1 class="text-center font-bold text-2xl md:text-4xl lg:text-4xl py-8 lg:pb-4 md:py-4">Riwayat Pengobatan</h1>
             <div class="card rounded-2xl md:mx-4"style="background-color: #F6F8FD">
                 <div class="card-body lg:py-8 md:py-8">
@@ -104,20 +106,22 @@
                             <h1 class="text-center md:text-start lg:text-start text-lg lg:text-5xl md:text-3xl  font-bold w-1/2 lg:w-96 md:w-72"
                                 style="color:#0C145A">
                                 Kamu belum memiliki riwayat pengobatan</h1>
-                            {{-- button --}}
                             <div class="flex items-start">
                                 <a href="" class=" px-4 py-2 text-white bg-blue-800 rounded-full ">Check
                                     Kesehatan</a>
                             </div>
                         </div>
                         <div class="flex justify-start mx-auto pt-4 md:pt-0 lg:pt-0">
-                            {{-- <img src="https://img.icons8.com/ios/50/000000/medical-history.png" class="w-16 h-16" /> --}}
+
                             <img src={{ asset('images/riwayat-kesehatan.png') }}
                                 class="w-48 h-40 lg:w-96 lg:h-80 md:w-72 md:h-60" alt="riwayat-kesehatan">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </section>
+    <footer>
+
+    </footer>
 @endsection
