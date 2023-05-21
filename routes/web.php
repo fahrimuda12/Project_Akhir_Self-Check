@@ -8,6 +8,7 @@ use App\Http\Controllers\DokterController;
 use App\Http\Controllers\GejalaController;
 use App\Http\Controllers\PakarController;
 use App\Http\Controllers\PenyakitController;
+use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\SelfCheckController;
 use App\Models\Admin;
 use App\Models\Gejala;
@@ -42,7 +43,9 @@ Route::name('auth.')->group(function () {
 
 Route::name('konsul.')->middleware('auth')->prefix('konsul')->group(function () {
     Route::get('/quiz', [SelfCheckController::class, 'indexQuiz'])->name('quiz');
+    Route::get('/quiz2', [SelfCheckController::class, 'indexQuiz2'])->name('quiz2');
     Route::post('/diagnosa', [SelfCheckController::class, 'indexDiagnosa'])->name('hasil');
+    Route::get('/riwayat', [SelfCheckController::class, 'indexRiwayat'])->name('riwayat');
 });
 
 Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function () {
@@ -81,6 +84,15 @@ Route::name('admin.')->middleware(['auth:pakar,admin'])->group(function () {
     Route::get('/penyakit/edit/{id}', [PenyakitController::class, 'edit'])->name('kelola-data.edit-penyakit');
     Route::post('/penyakit/edit/update/{id}', [PenyakitController::class, 'update'])->name('kelola-data.edit-penyakit.update');
     Route::delete('/penyakit/delete/{penyakit}', [PenyakitController::class, 'destroy'])->name('kelola-data.delete-penyakit');
+});
+
+Route::name('admin.')->middleware(['auth:pakar,admin'])->group(function () {
+    Route::get('/pertanyaan', [PertanyaanController::class, 'index'])->name('kelola-data.pertanyaan');
+    Route::get('/pertanyaan/tambah', [PertanyaanController::class, 'create'])->name('kelola-data.tambah-pertanyaan');
+    Route::post('/pertanyaan/tambah', [PertanyaanController::class, 'storePenyakit'])->name('kelola-data.tambah-pertanyaan.create');
+    Route::get('/pertanyaan/edit/{id}', [PertanyaanController::class, 'edit'])->name('kelola-data.edit-pertanyaan');
+    Route::post('/pertanyaan/edit/update/{id}', [PertanyaanController::class, 'update'])->name('kelola-data.edit-pertanyaan.update');
+    Route::delete('/pertanyaan/delete/{penyakit}', [PertanyaanController::class, 'destroy'])->name('kelola-data.delete-pertanyaan');
 });
 
 Route::name('pakar.')->middleware('auth:pakar')->prefix('pakar')->group(function () {

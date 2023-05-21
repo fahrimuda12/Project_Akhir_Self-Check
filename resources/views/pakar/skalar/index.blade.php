@@ -2,15 +2,16 @@
 @section('content')
     <div class="p-4 sm:ml-64">
         <div class="p-4 rounded-lg dark:border-gray-700">
-            <div class="grid grid-cols-3 gap-2 mb-4">
+            <div class="grid grid-cols-3 gap-4 mb-4">
                 @foreach ($penyakit as $key => $data)
                     <div
-                        class="flex basis-1/3 p-4 items-center justify-around  rounded shadow bg-yellow-500 dark:bg-gray-800">
+                        class="flex basis-1/3 p-4 gap-2 items-center justify-around  rounded shadow bg-white bg-gradient-to-tr from-green-600 dark:bg-gray-800">
                         <div>
                             <img src="{{ asset('images/admin-profile.png') }}" alt="" width="100" height="100">
                         </div>
-                        <div class="flex flex-col gap-4 items-center">
-                            <p class="text-xl text-gray-700 dark:text-gray-500">{{ $data->nama_penyakit }}</p>
+                        <div class="flex flex-col gap-3 items-center">
+                            <p class="text-xl font-medium text-center text-gray-700 dark:text-gray-500">
+                                {{ $data->nama_penyakit }}</p>
                             <form action="{{ route('pakar.sorting', ['kode' => $data->kode_penyakit]) }}" method="get">
                                 @csrf
                                 <button type="submit"

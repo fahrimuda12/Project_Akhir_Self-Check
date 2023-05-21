@@ -4,6 +4,12 @@
         <section class="mb-10 px-8 py-10 bg-white rounded-3xl">
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left text-gray-500 shadow border" id="table-sorting">
+                    <colgroup>
+                        <col style="width:10%">
+                        <col style="width:20%">
+                        <col style="width:50%">
+                        <col style="width:20%">
+                    </colgroup>
                     <thead class="text-xs text-gray-700 uppercase bg-blue-50">
                         <tr>
                             <th scope="col" class="px-6 py-3">
@@ -30,7 +36,7 @@
                                 <td class="px-6 py-4 font-medium dark:text-white">
                                     {{ $penyakit->nama_penyakit }}
                                 </td>
-                                <td class="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
+                                <td class="px-6 py-4 font-medium dark:text-white">
                                     {{ $data->gejala }}
                                 </td>
                                 <td>

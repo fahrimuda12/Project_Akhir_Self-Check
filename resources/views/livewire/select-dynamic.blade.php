@@ -12,8 +12,8 @@
         @else
             <option value="">Belum Ditentukan</option>
         @endif
-        <option value="1">Sangat Berpengaruh</option>
-        <option value="0.8">Menengah</option>
-        <option value="0.5">Berpengaruh</option>
+        <option value="1">Faktor Mayor</option>
+        <option value="0.8">Faktor Menengah</option>
+        <option value="0.5">Faktor Minor</option>
     </select>
 </div>

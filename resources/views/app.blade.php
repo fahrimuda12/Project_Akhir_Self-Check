@@ -40,6 +40,13 @@
                         <a href="#"
                             class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Layanan</a>
                     </li>
+                    @auth
+                        <li>
+                            <a href="{{ route('konsul.riwayat') }}"
+                                class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Riwayat
+                                Kesehatan</a>
+                        </li>
+                    @endauth
                     <li>
                         <a href="#"
                             class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Tentang</a>
@@ -63,7 +70,7 @@
                         @else
                             <li>
                                 <a href={{ route('auth.login') }}
-                                    class="block py-2 px-4  text-blue-400 bg-slate-100 rounded-full ">fahri</a>
+                                    class="block py-2 px-4  text-blue-400 bg-slate-100 rounded-full ">{{ Auth::guard()->user()->nama }}</a>
                             </li>
                         @endif
                         <li>

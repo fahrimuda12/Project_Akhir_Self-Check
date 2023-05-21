@@ -41,6 +41,16 @@ class Pertanyaan extends Model
         }
     }
 
+    public function opsi1()
+    {
+        return $this->hasOne(SkalarCF::class, 'kode_skalar', 'opsi_2');
+    }
+
+    public function opsi2()
+    {
+        return $this->hasOne(SkalarCF::class, 'opsi_2', 'kode_skalar');
+    }
+
     public function gejala()
     {
         return $this->hasOne(Gejala::class, 'kode_gejala', 'kode_gejala');
@@ -78,5 +88,10 @@ class Pertanyaan extends Model
                 // }
             },
         );
+    }
+
+    public function treePertanyaan()
+    {
+        return $this->belongsTo(NodePertanyaan::class, 'id_pertanyaan', 'id_pertanyaan');
     }
 }

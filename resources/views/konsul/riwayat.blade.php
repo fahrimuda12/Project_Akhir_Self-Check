@@ -9,6 +9,7 @@
                         <col style="width:10%">
                         <col style="width:30%">
                         <col style="width:10%">
+                        <col style="width:30%">
                     </colgroup>
                     <thead class="text-xs text-gray-700 uppercase border-b-2 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -21,19 +22,25 @@
                             <th scope="col" class="px-6 py-3">
                                 Persentase
                             </th>
+                            <th scope="col" class="px-6 py-3">
+                                Tanggal Pengecekan
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($result as $val)
+                        @foreach ($riwayat as $val)
                             <tr class="dark:bg-gray-800 dark:border-gray-700">
                                 <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $val['kodePenyakit'] }}
+                                    {{ $val->kode_penyakit }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $val['penyakit'] }}
+                                    {{ $val->nama_penyakit }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ $val['cf'] }}
+                                    {{ $val->pivot->nilai_cf }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $val->pivot->created_at }}
                                 </td>
                             </tr>
                         @endforeach

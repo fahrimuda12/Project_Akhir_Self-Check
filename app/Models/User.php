@@ -50,4 +50,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function riwayatPenyakit()
+    {
+        return $this->belongsToMany(Penyakit::class, 'riwayat_penyakit', 'kode_pasien', 'kode_penyakit')->withPivot('nilai_cf', 'created_at');
+    }
 }

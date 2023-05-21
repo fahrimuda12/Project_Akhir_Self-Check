@@ -4,13 +4,14 @@
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <div class="grid grid-cols-3 gap-4 mb-4">
-                <div class="flex flex-col items-center justify-center p-2 rounded bg-yellow-600 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-50 font-bold dark:text-gray-500">50</p>
+                <div
+                    class="flex flex-col items-center justify-center p-2 rounded bg-yellow-600  bg-gradient-to-t from-amber-600 dark:bg-gray-800">
+                    <p class="text-2xl text-gray-50 font-bold dark:text-gray-500">{{ $user }}</p>
                     <p class="text-gray-50">Pengguna</p>
                 </div>
                 <div
                     class="flex flex-col items-center justify-center h-24 rounded bg-blue-600 bg-gradient-to-t from-indigo-500 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-50 font-bold dark:text-gray-500">2</p>
+                    <p class="text-2xl text-gray-50 font-bold dark:text-gray-500">{{ $pakar }}</p>
                     <p class="text-gray-50">Dokter</p>
                 </div>
                 <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">

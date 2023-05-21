@@ -21,8 +21,13 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $penyakit = Penyakit::all()->count();
+        $pakar = Pakar::all()->count();
+        $user = User::all()->count();
         return view('admin/dashboard', [
             'title' => 'Dashboard',
+            'user' => $user,
+            'pakar' => $pakar,
         ]);
     }
 
