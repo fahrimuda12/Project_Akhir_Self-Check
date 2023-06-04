@@ -17,7 +17,12 @@ class Penyakit extends Model
     protected $fillable = [
         'kode_penyakit',
         'nip_dokter',
+        'nip',
         'nama_penyakit'
+    ];
+
+    protected $append = [
+        'total_terjangkit',
     ];
 
     public function gejala(): BelongsToMany
@@ -48,6 +53,13 @@ class Penyakit extends Model
     public function cf()
     {
         return $this->hasManyThrough(Gejala::class, Rule::class, 'kode_penyakit', 'kode_gejala', 'kode_penyakit', 'kode_gejala');
+    }
+
+
+    public function getTotalTerjangkitAttribute()
+    {
+        // dd(RiwayatPenyakit::where('kode_penyakit', $this->kode_penyakit)->get());
+        return RiwayatPenyakit::where('nilai_cf', '>', 50)->where('kode_penyakit', $this->kode_penyakit)->count();
     }
 
     // /**

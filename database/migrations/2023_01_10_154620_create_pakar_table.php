@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pakar', function (Blueprint $table) {
-            $table->string('nip_dokter', 15);
+            $table->string('nip_dokter', 18);
             $table->string('nama_dokter', 25);
             $table->text('alamat');
             $table->integer('no_hp');

@@ -52,16 +52,16 @@ Route::name('admin.')->middleware('auth:admin')->prefix('admin')->group(function
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/kelola-data', [AdminController::class, 'indexKelola'])->name('kelola-data');
     Route::get('/kelola-pengguna', [AdminController::class, 'indexPengguna'])->name('kelola-pengguna');
-    Route::get('/kelola-pengguna/user/tambah', [AdminController::class, 'createPengguna'])->name('kelola-pengguna.tambah-user');
-    Route::post('/kelola-pengguna/user/tambah', [AdminController::class, 'storePengguna'])->name('kelola-pengguna.tambah-user.post');
-    Route::get('/kelola-pengguna/user/edit/{id}', [AdminController::class, 'editPengguna'])->name('kelola-pengguna.edit-user');
-    Route::post('/kelola-pengguna/user/edit/{id}', [AdminController::class, 'updatePengguna'])->name('kelola-pengguna.update-user');
-    Route::get('/kelola-pengguna/user/delete/{id}', [AdminController::class, 'destroy'])->name('kelola-pengguna.delete-user');
+    Route::get('/kelola-pengguna/tambah', [AdminController::class, 'createPengguna'])->name('kelola-pengguna.tambah-user');
+    Route::post('/kelola-pengguna/tambah', [AdminController::class, 'storePengguna'])->name('kelola-pengguna.tambah-user.post');
+    Route::get('/kelola-pengguna/edit/{id}', [AdminController::class, 'editPengguna'])->name('kelola-pengguna.edit-user');
+    Route::post('/kelola-pengguna/edit/{id}', [AdminController::class, 'updatePengguna'])->name('kelola-pengguna.update-user');
+    Route::get('/kelola-pengguna/delete/{id}', [AdminController::class, 'destroy'])->name('kelola-pengguna.delete-user');
 
-    Route::get('/kelola-pengguna/dokter/tambah', [DokterController::class, 'create'])->name('kelola-pengguna.tambah-dokter');
-    Route::post('/kelola-pengguna/dokter/tambah', [DokterController::class, 'store'])->name('kelola-pengguna.tambah-dokter.post');
-    Route::get('/kelola-pengguna/dokter/edit/{id}', [DokterController::class, 'edit'])->name('kelola-pengguna.edit-dokter');
-    Route::post('/kelola-pengguna/dokter/edit/{id}', [DokterController::class, 'update'])->name('kelola-pengguna.update-dokter');
+    // Route::get('/kelola-pengguna/dokter/tambah', [DokterController::class, 'create'])->name('kelola-pengguna.tambah-dokter');
+    // Route::post('/kelola-pengguna/dokter/tambah', [DokterController::class, 'store'])->name('kelola-pengguna.tambah-dokter.post');
+    // Route::get('/kelola-pengguna/dokter/edit/{id}', [DokterController::class, 'edit'])->name('kelola-pengguna.edit-dokter');
+    // Route::post('/kelola-pengguna/dokter/edit/{id}', [DokterController::class, 'update'])->name('kelola-pengguna.update-dokter');
 
 
     // API Sementara

@@ -17,6 +17,7 @@ class Gejala extends Model
         'gejala',
         'kode_gejala',
         'nip_dokter',
+        'nip'
 
     ];
 

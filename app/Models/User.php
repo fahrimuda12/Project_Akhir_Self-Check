@@ -54,6 +54,6 @@ class User extends Authenticatable
 
     public function riwayatPenyakit()
     {
-        return $this->belongsToMany(Penyakit::class, 'riwayat_penyakit', 'kode_pasien', 'kode_penyakit')->withPivot('nilai_cf', 'created_at');
+        return $this->belongsToMany(Penyakit::class, 'riwayat_penyakit', 'kode_pasien', 'kode_penyakit')->withPivot('nilai_cf', 'created_at', 'keterangan');
     }
 }

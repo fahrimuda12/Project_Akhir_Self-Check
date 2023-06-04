@@ -28,7 +28,7 @@
                             <div class="flex flex-row md:items-center justify-around md:gap-3 lg:gap-0 lg:justify-around">
                                 <div class="inline-block ">
                                     <input class="appearance-none peer" type="radio" id="admin" name="role"
-                                        value="1">
+                                        value="1" {{ old('role') == '1' ? 'checked' : '' }}>
                                     <label for="admin"
                                         class="px-2 py-1 gap-1 rounded-lg flex justify-center items-center text-sm lg:text-lg  w-10 h-10 lg:w-full lg:h-12 cursor-pointer
                                         peer-checked:flex-col peer-checked:w-16 peer-checked:gap-0
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="inline-block">
                                     <input class="appearance-none peer" type="radio" id="user" name="role"
-                                        value="2">
+                                        value="2" {{ old('role') == '2' ? 'checked' : '' }}>
                                     <label for="user"
                                         class="px-2 py-1 gap-1 rounded-lg flex justify-center items-center text-sm lg:text-lg  w-10 h-10 lg:w-full lg:h-12 cursor-pointer
                                     peer-checked:flex-col peer-checked:w-16 peer-checked:gap-0"><i
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="inline-block">
                                     <input class="appearance-none peer" type="radio" id="dokter" name="role"
-                                        value="3">
+                                        value="3" {{ old('role') == '3' ? 'checked' : '' }}>
                                     <label for="dokter"
                                         class="px-2 py-1 gap-1 rounded-lg flex justify-center items-center text-sm lg:text-lg  w-10 h-10 lg:w-full lg:h-12 cursor-pointer
                                     peer-checked:flex-col peer-checked:w-16 peer-checked:gap-0"><i
@@ -57,9 +57,22 @@
 
                             </div>
                         </div>
-
+                        @if (session('error'))
+                            <div class="p-4
+                                text-sm text-red-700 bg-red-100 rounded-lg dark:bg-gray-800 dark:text-red-400"
+                                role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        @error('role')
+                            <div class="p-4
+                                text-sm text-red-700 bg-red-100 rounded-lg dark:bg-gray-800 dark:text-red-400"
+                                role="alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
                         <!-- Email input -->
-                        <div class="flex flex-col mb-6 mt-6">
+                        <div class="flex gap-2 flex-col mb-6 mt-6">
                             <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                                 Alamat Email
                             </label>
@@ -69,7 +82,7 @@
                                 value="{{ old('email') }}" />
                             @error('email')
                                 <div class="p-4
-                                mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-gray-800 dark:text-red-400"
+                                text-sm text-red-700 bg-red-100 rounded-lg dark:bg-gray-800 dark:text-red-400"
                                     role="alert">
                                     {{ $message }}
                                 </div>
@@ -77,7 +90,7 @@
                         </div>
 
                         <!-- Password input -->
-                        <div class="flex flex-col mb-6">
+                        <div class="flex gap-2 flex-col mb-6">
                             <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
                                 Password
                             </label>
@@ -86,7 +99,7 @@
                                 id="password" name="password" placeholder="Password" />
                             @error('password')
                                 <div class="p-4
-                                mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-gray-800 dark:text-red-400"
+                                text-sm text-red-700 bg-red-100 rounded-lg dark:bg-gray-800 dark:text-red-400"
                                     role="alert">
                                     {{ $message }}
                                 </div>

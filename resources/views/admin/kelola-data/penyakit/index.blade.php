@@ -63,7 +63,7 @@
                 </a>
             </div>
             <div class="relative overflow-x-auto">
-                <livewire:penyakit-table></livewire:penyakit-table>
+                <livewire:penyakit-table>
             </div>
         </section>
         <section id="rule" class="mb-10 px-8 py-10 bg-white rounded-3xl">
@@ -80,7 +80,7 @@
                 </a> --}}
             </div>
             <div class="relative overflow-x-auto">
-                <livewire:rulers-table></livewire:rulers-table>
+                <livewire:rulers-table>
             </div>
         </section>
         {{-- <livewire:table :config="App\Tables\RuleTable::class" /> --}}

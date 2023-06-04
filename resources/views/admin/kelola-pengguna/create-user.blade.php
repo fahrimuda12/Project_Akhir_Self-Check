@@ -86,7 +86,7 @@
                     <select name="jenkel" data-placeholder="Jenis Kelamin"
                         class="select2-input block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
                         <option value="" selected>Jenis Kelamin</option>
-                        <option value="laki-laki">Laki-Laki</option>
+                        <option value="pria">Pria</option>
                         <option value="perempuan">Perempuan</option>
                     </select>
                     <label for="floating_gejala"
@@ -116,7 +116,7 @@
             </div>
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="relative z-0 w-full mb-6 group">
-                    <input type="tel" pattern="[0-9]{12}" name="hp" id="floating_phone"
+                    <input type="text" name="hp" id="floating_phone"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " value="{{ old('hp') }}" />
                     <label for="floating_phone"
@@ -162,8 +162,17 @@
                     </div>
                 @enderror
             </div>
-            <button type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            <div class="flex flex-row justify-between">
+                <div>
+                    <button type="submit"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Submit</button>
+                </div>
+                <div>
+                    <button type="button" onclick="window.history.back()"
+                        class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Back</button>
+                </div>
+            </div>
         </form>
 
     </div>

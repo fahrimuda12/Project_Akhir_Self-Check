@@ -16,24 +16,25 @@ class GejalaTable extends Table
     }
     public function query(): Builder
     {
-        return Gejala::select('gejala.kode_gejala', 'gejala.gejala', 'pertanyaan.pertanyaan AS pertanyaan', 'pakar.nama_dokter AS nama_dokter', 'gejala.created_at')
+        return Gejala::select('gejala.kode_gejala', 'gejala.gejala', 'pertanyaan.pertanyaan AS pertanyaan', 'pakar.nama_dokter AS nama_dokter', 'admin.nama_pegawai AS nama_admin', 'gejala.created_at')
             ->join('pertanyaan', 'pertanyaan.kode_gejala', '=', 'gejala.kode_gejala')
-            ->join('pakar', 'pakar.nip_dokter', '=', 'gejala.nip_dokter')
-            ->orderByRaw(
-                'CASE
-                    WHEN pertanyaan.pertanyaan IS NULL THEN 1
-                    ELSE 0
-                END,
-                pertanyaan.pertanyaan ASC'
-            );
+            ->leftjoin('pakar', 'pakar.nip_dokter', '=', 'gejala.nip_dokter')
+            ->leftjoin('admin', 'admin.nip', '=', 'gejala.nip');
+        // ->orderByRaw(
+        //     'CASE
+        //         WHEN pertanyaan.pertanyaan IS NULL THEN 1
+        //         ELSE 0
+        //     END,
+        //     pertanyaan.pertanyaan ASC'
+        // );
     }
 
     public function queryFilter()
     {
         // dd(Gejala::doesntHave('pertanyaan')->get());
-        return Gejala::doesntHave('pertanyaan')
-            ->select('gejala.kode_gejala', 'gejala.gejala', 'pakar.nama_dokter AS nama_dokter', 'gejala.created_at')
-            ->join('pakar', 'pakar.nip_dokter', '=', 'gejala.nip_dokter')
+        return Gejala::select('gejala.kode_gejala', 'gejala.gejala', 'pakar.nama_dokter AS nama_dokter', 'admin.nama_pegawai as nama_pegawai', 'gejala.created_at')
+            ->leftjoin('pakar', 'pakar.nip_dokter', '=', 'gejala.nip_dokter')
+            ->leftjoin('admin', 'admin.nip', '=', 'gejala.nip')
             ->get();
     }
 
@@ -49,7 +50,7 @@ class GejalaTable extends Table
             Column::make('kode_gejala', 'Kode'),
             Column::make('gejala', 'Gejala'),
             Column::make('pertanyaan', 'Pertanyaan'),
-            Column::make('nama_dokter', 'Penginput'),
+            Column::make('nama_dokter', 'Penginput', 'nama_pegawai'),
             Column::make('created_at', 'Created At'),
         ];
     }

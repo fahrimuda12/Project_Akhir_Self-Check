@@ -10,8 +10,11 @@ class SkalarCF extends Model
 {
     use HasFactory;
     protected $table = 'skalar_cf';
+    protected $primaryKey = 'kode_skalar';
+    public $incrementing = false;
     protected $fillable = [
         'kode_skalar',
+        'tipe',
         'skalar',
         'bobot_nilai',
     ];

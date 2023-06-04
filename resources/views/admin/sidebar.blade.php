@@ -12,7 +12,7 @@
 </button> --}}
 
 <aside id="default-sidebar"
-    class="fixed md:pt-20 md:pl-5 md:pb-5 top-0 left-0 z-50 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+    class="fixed md:pt-20 md:pl-5 md:pb-5 top-0 left-0 z-0 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
     aria-label="Sidebar">
     <div class="h-full px-3 overflow-y-auto bg-white rounded-3xl dark:bg-gray-800">
         <ul class="space-y-2">

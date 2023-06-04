@@ -70,7 +70,7 @@
                 if (selectedValue === "pilgan") {
                     formPilgan.show();
                     formHari.hide();
-                } else if (selectedValue === "hari") {
+                } else if (selectedValue === "inputan") {
                     formPilgan.hide();
                     formHari.show();
                 }

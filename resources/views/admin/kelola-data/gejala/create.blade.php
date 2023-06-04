@@ -52,57 +52,28 @@
                         class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pilihan Ganda</label>
                 </div>
                 <div class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
-                    <input type="radio" value="hari" name="skalarOption"
+                    <input type="radio" value="inputan" name="skalarOption"
                         class="skalar-option w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                     <label for="bordered-radio-2"
-                        class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Hari</label>
+                        class="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Rentang Atas</label>
                 </div>
-            </div>
-            <div id="pilganForm">
-                {{-- <div class="relative w-full mb-2 group group-select md:mt-0 mt-2 ">
-                    <select name="pilgan[]" data-placeholder="Seberapa yakin dengan gejalanya ?"
-                        class="select2-nilai block py-2.5 px-2 w-full capitalize text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none rounded-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 target:text-lg focus:outline-none focus:ring-0 focus:border-blue-600 peer
-                        ">
-                        <option></option>
-                        @forelse ($nilai as $data)
-                            <option value="{{ $data->bobot_nilai }}">{{ $data->skalar }}</option>
-                        @empty
-                            <option>Lainnya</option>
-                        @endforelse
-                    </select>
-                    <label for="floating_gejala"
-                        class="peer-focus:font-medium
-                        absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Skalar
-                        Keyakinan</label>
-                </div>
-                <div class="relative w-full mb-2 group group-select md:mt-0 mt-2 ">
-                    <select name="pilgan[]" data-placeholder="Seberapa yakin dengan gejalanya ?"
-                        class="select2-nilai block py-2.5 px-2 w-full capitalize text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none rounded-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 target:text-lg focus:outline-none focus:ring-0 focus:border-blue-600 peer
-                        ">
-                        <option></option>
-                        @forelse ($nilai as $data)
-                            <option value="{{ $data->bobot_nilai }}">{{ $data->skalar }}</option>
-                        @empty
-                            <option>Lainnya</option>
-                        @endforelse
-                    </select>
-                    <label for="floating_gejala"
-                        class="peer-focus:font-medium
-                        absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Skalar
-                        Keyakinan</label>
-                </div> --}}
             </div>
             <div id="hariForm" class="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <div class="relative z-0 w-full mb-6 group">
-                    <input type="text" name="hari" id="inputHari" value="{{ old('hari') }}"
+                    <input type="text" name="inputan" id="inputHari" value="{{ old('inputan') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " />
                     <label for="inputHari"
                         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Rentang
-                        Hari
-                        1</label>
+                        Atas</label>
                 </div>
             </div>
+            @error('inputan')
+                <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-gray-800 dark:text-red-400"
+                    role="alert">
+                    {{ $message }}
+                </div>
+            @enderror
             <button type="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
         </form>

@@ -99,7 +99,7 @@
                                 </div>
                             </td>
                         @else
-                            @if ($row[$column->key] == null)
+                            @if ($row[$column->key] == null && $row[$column->defaultValue] != '')
                                 <td>
                                     <div class="py-3 px-6 flex items-center cursor-pointer">
                                         <input id="inputField" type="text" wire:model='data'
@@ -110,7 +110,7 @@
                             @else
                                 <td>
                                     <div class="py-3 px-6 flex items-center cursor-pointer">
-                                        <x-dynamic-component :component="$column->component" :value="$row[$column->key]">
+                                        <x-dynamic-component :component="$column->component" :value="$row[$column->key] ?? $row[$column->defaultValue]">
                                         </x-dynamic-component>
                                     </div>
                                 </td>
