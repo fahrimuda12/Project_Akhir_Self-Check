@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode_gejala', 5);
             $table->string('kode_penyakit', 5);
-            $table->double('nilai_cf', 8, 1);
+            $table->double('nilai_cf', 8, 1)->nullable();
             $table->timestamps();
 
             //referenced tables

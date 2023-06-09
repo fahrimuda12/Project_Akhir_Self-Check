@@ -1,81 +1,76 @@
-@extends('pakar/app')
+@extends('admin/app')
 @section('content')
-    @extends('pakar/sidebar')
-    <div class="py-8 px-4 sm:ml-64">
-        <div class="flex items-center justify-items-start justify-between mb-4">
-            <p class="text-lg font-semibold whitespace-nowrap">Gejala</p>
-            <a href="{{ route('pakar.gejala.tambah') }}" data-mdb-ripple="true" data-mdb-ripple-color="light"
-                class="inline-block
-                                px-7 py-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded
-                                shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg
-                                focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150
-                                ease-in-out">
-                Tambah Data +
-            </a>
+    {{-- @extends('admin/sidebar') --}}
+    @if (session('success'))
+        <div id="alert-3"
+            class="sm:ml-64 flex p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+            role="alert">
+            <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd"></path>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div class="ml-3 text-sm font-medium">
+                {{ session('success') }}
+            </div>
+            <button type="button"
+                class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700"
+                data-dismiss-target="#alert-3" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </button>
         </div>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                            No
-                        </th>
-                        <th scope="col" class="px-6 py-3 ">
-                            Nama Penyakit
-                        </th>
-                        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                            Terjangkit (Bulan)
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Gejala
-                        </th>
-                        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                            Pertanyaan
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="border-b border-gray-200 dark:border-gray-700">
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                            1
-                        </th>
-                        <td class="px-6 py-4">
-                            Batuk Berdahak
-                        </td>
-                        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                            3 Orang
-                        </td>
-                        <td class="px-6 py-4 ">
-                            <span class="flex flex-col md:flex-row items-center gap-2">
-                                <svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="14" height="14"
-                                    viewBox="0 0 36 36">
-                                    <path d="m6 14 8 8L30 6v8L14 30l-8-8v-8Z"></path>
-                                </svg>
-                                Verified
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                            <span class="flex flex-col md:flex-row items-center gap-2">
-                                <svg aria-hidden="true" class="svg-icon iconCheckmarkLg" width="14" height="14"
-                                    viewBox="0 0 36 36">
-                                    <path d="m6 14 8 8L30 6v8L14 30l-8-8v-8Z"></path>
-                                </svg>
-                                Verified
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 flex gap-2">
-                            <a href="" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            <a href="#"
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    @endif
+    @if (session('error'))
+        <div id="alert-3"
+            class="sm:ml-64 flex p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-green-400"
+            role="alert">
+            <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd"></path>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div class="ml-3 text-sm font-medium">
+                {{ session('error') }}
+            </div>
+            <button type="button"
+                class="ml-auto -mx-1.5 -my-1.5 bg-red-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700"
+                data-dismiss-target="#alert-3" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </button>
         </div>
-
+    @endif
+    <div class="px-4  lg:px-1 sm:ml-64">
+        <section id="tabel-gejala" class="mb-10 px-8 py-10 bg-white rounded-3xl">
+            <div class="flex items-center justify-items-start md:justify-between mb-4">
+                <p class="text-lg font-semibold whitespace-nowrap">Gejala</p>
+                <a href="{{ route('pakar.gejala.create') }}" data-mdb-ripple="true" data-mdb-ripple-color="light"
+                    class="inline-block
+                                    px-7 py-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded
+                                    shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg
+                                    focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150
+                                    ease-in-out">
+                    Tambah Data +
+                </a>
+            </div>
+            <div class="relative overflow-x-auto">
+                <livewire:gejala-table>
+            </div>
+        </section>
     </div>
 @endsection

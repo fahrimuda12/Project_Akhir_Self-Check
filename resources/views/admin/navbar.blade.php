@@ -13,10 +13,9 @@
                         </path>
                     </svg>
                 </button>
-                <a href="https://flowbite.com" class="flex ml-2 md:mr-24">
-                    {{-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" /> --}}
-                    <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">PensClinic</span>
+                <a href="#" class="flex ml-4 justify-center">
+                    <img src={{ asset('images/logo/logo-text.svg') }} class="h-8 mr-3" alt="FlowBite Logo" />
+                    {{-- <img src={{ asset('images/logo/logo-text.svg') }} width="150"> --}}
                 </a>
             </div>
 
@@ -42,7 +41,7 @@
 
                         <!-- BG -->
                         <div class="relative  z-10 top-[14px] ">
-                            <svg width="206" height="39" viewBox="0 0 206 39" fill="none"
+                            <svg width="206" height="39" viewBox="0 0 190 39" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M205.943 39H0C0 39 17.065 38.632 22.4943 24.5558C31.9654 0.000488281 36.793 0.000488281 50.9995 0.000488281H51H103L155 0.00040851H155.001C155.212 0.000408509 155.42 0.000408509 155.627 0.000488929C169.733 0.000705916 174.063 0.0735916 183.506 24.5558C188.951 38.6733 204.869 38.9945 205.943 39Z"

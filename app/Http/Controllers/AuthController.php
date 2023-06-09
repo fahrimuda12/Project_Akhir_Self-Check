@@ -39,34 +39,41 @@ class AuthController extends Controller
     {
         // dd($request->all());
         //login
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+        $this->validate($request, [
+            'email' => 'required|email|same:email',
+            'password' => 'required',
+            'role' => 'required',
+        ], [
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Email tidak valid',
+            'email.same' => 'Email belum terdaftar',
+            'password.required' => 'Password tidak boleh kosong',
+            'role.required' => 'Role harus dipilih',
         ]);
+
+        $credentials = $request->only('email', 'password');
 
         if ($request->role == 1) {
             if (Auth::guard('admin')->attempt($credentials)) {
                 // dd('berhasil');
                 $request->session()->regenerate();
                 // dd('berhasil');
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin.dashboard')->withSuccess('Selamat Datang, Berhail Masuk !');
             }
         } else if ($request->role == 2 && Auth::attempt($credentials)) {
             $request->session()->regenerate();
             // dd("berhasil");
-            return redirect()->intended('/')->withSuccess('Signed in');
+            return redirect()->intended('/')->withSuccess('Selamat Datang, Berhail Masuk !');
         } else if ($request->role == 3) {
             // dd('berhasil');
             if (Auth::guard('pakar')->attempt($credentials)) {
                 // dd('berhasil');
                 $request->session()->regenerate();
                 // dd('berhasil');
-                return redirect()->route('pakar.dashboard');
+                return redirect()->route('pakar.dashboard')->withSuccess('Selamat Datang, Berhail Masuk !');
             }
         }
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        return back()->withError('Kredensial tidak sesuai')->onlyInput('email');
     }
 
     // public function dashboard()

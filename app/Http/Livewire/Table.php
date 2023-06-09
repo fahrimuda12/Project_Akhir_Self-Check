@@ -115,14 +115,18 @@ class Column
 
     public string $label;
 
-    public function __construct($key, $label)
+    public string $defaultValue;
+
+
+    public function __construct($key, $label, $defaultValue)
     {
         $this->key = $key;
         $this->label = $label;
+        $this->defaultValue = $defaultValue;
     }
 
-    public static function make($key, $label)
+    public static function make($key, $label, $defaultValue = '')
     {
-        return new static($key, $label);
+        return new static($key, $label, $defaultValue);
     }
 }

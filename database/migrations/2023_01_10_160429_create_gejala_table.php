@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('gejala', function (Blueprint $table) {
             $table->string('kode_gejala', 5);
-            $table->string('nip_dokter', 15);
-            $table->string('gejala', 15);
+            $table->string('nip_dokter', 18)->nullable();
+            $table->string('nip', 18)->nullable();
+            $table->string('gejala', 50);
             $table->timestamps();
             $table->primary('kode_gejala');
-            $table->foreign('nip_dokter')->references('nip_dokter')->on('pakar')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('nip')->references('nip')->on('admin')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('nip_dokter')->references('nip_dokter')->on('pakar')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

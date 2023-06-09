@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\SkalarCF;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,8 +17,23 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            GejalaSeeder::class,
-            PenyakitSeeder::class,
+            AdminSeeder::class,
+            PakarSeeder::class,
+            // SkalarCFSeeder::class,
+            SkalarCF101Seeder::class,
+            // GejalaSeeder::class,
+            Gejala101Seeder::class,
+            // PenyakitSeeder::class,
+            // PenyakitBaruSeeder::class,
+            // ini yang benar
+            // PenyakitBaru2Seeder::class,
+            // PenyakitAllSeeder::class,
+            // PenyakitAll2Seeder::class,
+            // PenyakitBukanSeeder::class,
+            // Penyakit246Seeder::class,
+            Penyakit468Seeder::class,
+            // Penyakit035Seeder::class,
+
             // TabelKeputusanSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();

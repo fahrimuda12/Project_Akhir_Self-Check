@@ -17,6 +17,7 @@ class Gejala extends Model
         'gejala',
         'kode_gejala',
         'nip_dokter',
+        'nip'
 
     ];
 
@@ -28,6 +29,16 @@ class Gejala extends Model
     public function pertanyaan()
     {
         return $this->hasOne(Pertanyaan::class, 'kode_gejala', 'kode_gejala');
+    }
+
+    public function rule()
+    {
+        return $this->hasMany(Rule::class, 'kode_gejala');
+    }
+
+    public function cf()
+    {
+        return $this->hasManyThrough(Gejala::class, Rule::class, 'kode_penyakit', 'kode_gejala', 'kode_penyakit', 'kode_gejala');
     }
 
     // public function havePertanyaan()

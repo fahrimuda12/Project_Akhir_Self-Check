@@ -19,8 +19,6 @@ class admin
     {
         if (!Auth::guard('admin')->check()) {
             return route('auth.login');
-        } else if (Auth::guard('pakar')->check()) {
-            return route('pakar.dashboard');
         }
         return $next($request);
     }

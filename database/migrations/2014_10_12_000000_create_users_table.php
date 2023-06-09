@@ -15,12 +15,12 @@ return new class extends Migration
     {
         // Schema::dropIfExists('user');
         Schema::create('user', function (Blueprint $table) {
-            $table->string('nrp', 15);
+            $table->string('nrp', 18);
             $table->string('nama', 25);
             $table->enum('jenkel', ['pria', 'perempuan']);
             $table->integer('umur');
             $table->text('alamat');
-            $table->integer('no_hp');
+            $table->string('no_hp', 14);
             $table->string('email', 50)->unique();
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

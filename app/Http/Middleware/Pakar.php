@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,7 @@ class Pakar
         if (!Auth::guard('pakar')->check()) {
             return route('auth.login');
         }
+        dd($next($request));
         return $next($request);
     }
 }

@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gejala;
 use App\Models\Penyakit;
 use App\Models\Pertanyaan;
 use App\Models\SkalarCF;
 use App\Models\TabelKeputusan;
+use App\Models\User;
+use App\Repositories\SelfCheck\SelfCheckRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SelfCheckController extends Controller
@@ -170,6 +175,49 @@ class SelfCheckController extends Controller
         //     ->select('users.id', 'contacts.phone', 'orders.price')
         //     ->get();
         $data_pertanyaan = Pertanyaan::all();
+        // $data_pertanyaan = Pertanyaan::whereHas('treePertanyaan', function ($query) {
+        //     $query->where('parent_id', 0);
+        // })->get();
+
+        // dd($data_pertanyaan[0]->opsi1);
+        // $data_pertanyaan = $data_pertanyaan->treePertanyaan()->where('parent_id', 0)->get();
+        // dd($data_pertanyaan);
+        foreach ($data_pertanyaan as $key => $value) {
+            // $skalar = SkalarCF::all();
+            // dd($skalar[0]->type);
+            $data_pertanyaan[$key]->opsi_1 = SkalarCF::select('kode_skalar', 'skalar', 'bobot_nilai')->where('kode_skalar', $value->opsi_1)->first();
+            $data_pertanyaan[$key]->opsi_2 = SkalarCF::select('kode_skalar', 'skalar', 'bobot_nilai')->where('kode_skalar', $value->opsi_2)->first();
+            $data_pertanyaan[$key]->opsi_3 = SkalarCF::select('kode_skalar', 'skalar', 'bobot_nilai')->where('kode_skalar', $value->opsi_3)->first();
+            $data_pertanyaan[$key]->opsi_4 = SkalarCF::select('kode_skalar', 'skalar', 'bobot_nilai')->where('kode_skalar', $value->opsi_4)->first();
+            $data_pertanyaan[$key]->opsi_5 = SkalarCF::select('kode_skalar', 'skalar', 'bobot_nilai')->where('kode_skalar', $value->opsi_5)->first();
+            $data_pertanyaan[$key]->opsi_6 = SkalarCF::select('kode_skalar', 'skalar', 'bobot_nilai')->where('kode_skalar', $value->opsi_6)->first();
+        };
+
+        // $data_indikator = SkalarCF::all();
+        // foreach ($data_pertanyaan as $value) {
+        //     echo $value . "<br />";
+        //     echo "<br /> <br />";
+        // }
+        // die();
+        return view('user/konsul/quiz', [
+            'title' => 'Quiz',
+            'data' => $data_pertanyaan,
+            // 'indikators' => $indikators
+        ]);
+    }
+
+    public function indexQuiz2()
+    {
+        $gejala = Gejala::all();
+        //get gejala with have much rule in table Rule
+        //filter get gejala with max rule
+        $count_penyakit = Penyakit::all()->count();
+        $gejala_utama = collect(Gejala::select('kode_gejala')->withCount('rule')->having('rule_count', '>=', $count_penyakit - 2)->get()->toArray())->pluck('kode_gejala')->toArray();
+        // dd($gejala_utama);
+        //where in with condition from array
+
+        $data_pertanyaan = Pertanyaan::whereIn('kode_gejala', $gejala_utama)->get();
+        dd($data_pertanyaan);
         // dd($data_pertanyaan[0]->mergeBobot);
         foreach ($data_pertanyaan as $key => $value) {
             // $skalar = SkalarCF::all();
@@ -188,195 +236,38 @@ class SelfCheckController extends Controller
         //     echo "<br /> <br />";
         // }
         // die();
-        return view('konsul/quiz', [
+        return view('konsul/quiz2', [
             'title' => 'Quiz',
             'data' => $data_pertanyaan,
             // 'indikators' => $indikators
         ]);
     }
 
-    private function analyticCF($penyakit, Request $request)
-    {
-        // dd($request);
-        for ($i = 0; $i < count($penyakit); $i++) {
-            echo 'Penyakit ' . $penyakit[$i] . '<br>';
-            echo '-------------------------------- <br>';
-            $kode_penyakit = $penyakit[$i];
-            $CFK = 0;
-            foreach ($request->data as $key => $value) {
-                //Melakukan pengecekan apakah setiap pertanyaan dijawab atau tidak
-                if (isset($value['nilai'])) {
-                    echo $value['kode_gejala'] . ' = ' . $kode_penyakit . ' = ' . $value['nilai'] . ' = ';
-                    //Mencari hasil dari rule yang sesuai
-                    $result = TabelKeputusan::where('kode_penyakit', $kode_penyakit)->where('kode_gejala', $value['kode_gejala'])->first();
-                    if (isset($result->nilai_cf)) {
-                        $CF_E = $result->nilai_cf;
-                        // if ($i > 0) {
-                        // echo $value['kode_gejala'] . ' = ' . $kode_penyakit . ' = ' . $value['nilai'] . ' = ';
-                        // echo $CF_E . '  --> Inisalisasi' .  '<br>';
-                        // }
-                        $CF_H = $value['nilai'];
-                        $CF[$key] = $CF_E * $CF_H;
-                        echo 'CF[H,E] ' . $key . ' = ' . $CF_E . ' X ' . $CF_H . ' = ' . $CF_E * $CF_H . '<br>';
-                        if ($key  == 1) {
-
-                            $CFK += $CF[$key - 1] + $CF[$key] * (1 - $CF[$key - 1]);
-                            echo 'CFK ' . $key . ' = ' . $CF[$key - 1] . ' X ' . $CF[$key] . '( 1 - ' . $CF[$key - 1] . ')' . ' = ' . $CF[$key - 1] + $CF[$key] * (1 - $CF[$key - 1]) . '<br>';
-                            echo 'CFK ' . $key . ' = ' . $CFK . '<br>';
-                        }
-                        if ($key > 1) {
-                            echo 'CFK ' . $key . ' = ' . $CFK . ' X ' . $CF[$key] . '( 1 - ' . $CFK . ')' . ' = ' . $CFK + $CF[$key] * (1 - $CFK) . '<br>';
-
-                            $CFK = $CFK + $CF[$key] * (1 - $CFK);
-                            echo 'CFK ' . $key . ' = ' . $CFK . '<br>';
-                        }
-                        echo '<br>';
-                    }
-
-                    echo $CF_E . '<br>';
-                    // dd($CF_E);
-                }
-            }
-
-            echo '<br />';
-            // dd($CFK);
-            $CF_result[$penyakit[$i]] = $CFK / 1 * 100;
-        }
-        // die();
-        return $CF_result;
-    }
-
-
-
-    private function testMethod($penyakit, Request $request)
-    {
-        // dd($request->data);
-        for ($i = 0; $i < count($penyakit); $i++) {
-            echo 'Penyakit ' . $penyakit[$i] . '<br>';
-            echo '-------------------------------- <br>';
-            $kode_penyakit = $penyakit[$i];
-            $CFK = 0;
-            foreach ($request->data as $key => $value) {
-
-                // echo $value['hari'] . "<br>";
-                //Melakukan pengecekan apakah setiap pertanyaan dijawab atau tidak
-                $result = TabelKeputusan::where('kode_penyakit', $kode_penyakit)->where('kode_gejala', $value['kode_gejala'])->first();
-
-                if (isset($result->nilai_cf)) {
-                    $CF_E = $result->nilai_cf;
-                    if (isset($value['nilai'])) {
-                        echo $value['kode_gejala'] . ' = ' . $value['nilai'] . ' <br />';
-                        //Mencari hasil dari rule yang sesuai
-
-
-
-                        // if ($i > 0) {
-                        // echo $value['kode_gejala'] . ' = ' . $kode_penyakit . ' = ' . $value['nilai'] . ' = ';
-                        // echo $CF_E . '  --> Inisalisasi' .  '<br>';
-                        // }
-                        $CF_H = $value['nilai'];
-                        $CF[$key] = $CF_E * $CF_H;
-                        echo 'CF[H,E] ' . $key . ' = ' . $CF_E . ' X ' . $CF_H . ' = ' . $CF_E * $CF_H . '<br>';
-                        if ($key  == 1) {
-
-                            $CFK += $CF[$key - 1] + $CF[$key] * (1 - $CF[$key - 1]);
-                            echo 'CFK ' . $key . ' = ' . $CF[$key - 1] . ' X ' . $CF[$key] . '( 1 - ' . $CF[$key - 1] . ')' . ' = ' . $CF[$key - 1] + $CF[$key] * (1 - $CF[$key - 1]) . '<br>';
-                            echo 'CFK ' . $key . ' = ' . $CFK . '<br>';
-                        }
-                        if ($key > 1) {
-                            echo 'CFK ' . $key . ' = ' . $CFK . ' X ' . $CF[$key] . '( 1 - ' . $CFK . ')' . ' = ' . $CFK + $CF[$key] * (1 - $CFK) . '<br>';
-
-                            $CFK = $CFK + $CF[$key] * (1 - $CFK);
-                            echo 'CFK ' . $key . ' = ' . $CFK . '<br>';
-                        }
-                        echo '<br>';
-                    }
-                    if (isset($value['hari'])) {
-                        $data_skalar = json_decode($value['skalar'], true);
-                        //Mencari nilai skalar
-                        foreach ($data_skalar as $skalar_value) {
-                            // $skalar = explode('-', $value->skalar);
-                            if ($skalar_value['skalar'] != $value['hari']) {
-                                if ($skalar_value['skalar'] != '0') {
-                                    $newSkalar = explode("-", $skalar_value['skalar']);
-                                    if ($this->getBobot($value['hari'], $newSkalar[0], $newSkalar[1])) {
-                                        $CF_H = $skalar_value['bobot_nilai'];
-                                        // echo ' nilai = ' . $skalar_value['bobot_nilai']  . "<br />";
-                                        echo $value['kode_gejala'] . ' = ' . $skalar_value['bobot_nilai'] . '<br/>';
-                                    }
-                                }
-                            } else {
-                                $CF_H = 0;
-                                echo $value['kode_gejala'] . ' = ' . 0 . '<br/>';
-                            }
-                        }
-                        $CF[$key] = $CF_E * $CF_H;
-                        echo 'CF[H,E] ' . $key . ' = ' . $CF_E . ' X ' . $CF_H . ' = ' . $CF_E * $CF_H . '<br>';
-                        if ($key  == 1) {
-
-                            $CFK += $CF[$key - 1] + $CF[$key] * (1 - $CF[$key - 1]);
-                            echo 'CFK ' . $key . ' = ' . $CF[$key - 1] . ' X ' . $CF[$key] . '( 1 - ' . $CF[$key - 1] . ')' . ' = ' . $CF[$key - 1] + $CF[$key] * (1 - $CF[$key - 1]) . '<br>';
-                            echo 'CFK ' . $key . ' = ' . $CFK . '<br>';
-                        }
-                        if ($key > 1) {
-                            echo 'CFK ' . $key . ' = ' . $CFK . ' X ' . $CF[$key] . '( 1 - ' . $CFK . ')' . ' = ' . $CFK + $CF[$key] * (1 - $CFK) . '<br>';
-
-                            $CFK = $CFK + $CF[$key] * (1 - $CFK);
-                            echo 'CFK ' . $key . ' = ' . $CFK . '<br>';
-                        }
-                        echo '<br>';
-                        // echo 'Skalar = ' . $data  . "<br />";
-                    }
-                }
-                // echo $CF_E . '<br>';
-            }
-
-            echo '<br />';
-            // dd($CFK);
-            // $CF_result[$penyakit[$i]] = $CFK / 1 * 100;
-        }
-    }
-
-    private function getBobot($data, $val1, $val2)
-    {
-        if ($data >= $val1 && $data <= $val2) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function indexDiagnosa(Request $request)
     {
-        //Mengambil kode setiap penyakit
-        $penyakit = Penyakit::pluck('kode_penyakit');
-        $this->testMethod($penyakit, $request);
-        die();
-        $CF_result = $this->analyticCF($penyakit, $request);
+        $CF_result = (new SelfCheckRepository)->getDiagnosa($request);
 
-        //filtering big gejala
-        // array_multisort($CF_Sorting, SORT_DESC, $CF_result);
-        arsort($CF_result, SORT_ASC);
-        // dd($CF_result);
-        // foreach ($CF_result as $key => $value) {
-        //     if ($value < 0.5) {
-        //         unset($CF_result[$key]);
-        //     }
-        // }
-
-        // die();
-
-        dd($CF_result);
-        // foreach ($request->data as $key => $value) {
-        //     $CF_1 = $value['CF_1'];
-        //     $data[$key] = $value;
-        // }
-        // dd($data);
-
-        return view('konsul/diagnosa', [
-            'title' => 'Hasil Diagnosa'
+        return view('user/konsul/diagnosa', [
+            'title' => 'Hasil Diagnosa',
+            'result' => $CF_result
         ]);
     }
+
+
+    public function indexRiwayat()
+    {
+        $riwayat = User::find(Auth::guard()->user()->nrp)->riwayatPenyakit->groupBy('riwayat_penyakit.created_at');
+        $riwayat = $riwayat[""];
+        // dd($riwayat[0]->pivot->created_at);
+        // dd($riwayat[""][0]->pivot);
+        // dd($riwayat);
+
+        return view('user/konsul/riwayat', [
+            'title' => 'Riwayat Diagnosa',
+            'riwayat' => $riwayat
+        ]);
+    }
+
 
     /**
      * Show the form for creating a new resource.

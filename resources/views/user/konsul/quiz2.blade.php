@@ -115,7 +115,7 @@
                                                     value={{ json_encode($value->mergeBobot) }} hidden>
                                                 <input type="number" name={{ 'data[' . $key . ']' . '[hari]' }}
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder=" " required>
+                                                    placeholder=" ">
                                                 {{-- <input type="number" id="score" name="score" min="0"
                                                     max="10" value="{{ old('score') ?? 0 }}" step="1"
                                                     list="scores">

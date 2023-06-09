@@ -19,9 +19,6 @@ class Pertanyaan extends Model
         'opsi_1',
         'opsi_2',
         'opsi_3',
-        'opsi_4',
-        'opsi_5',
-        'opsi_6',
         'kode_gejala',
         'nip',
         'nip_dokter'
@@ -41,9 +38,34 @@ class Pertanyaan extends Model
         }
     }
 
+    public function opsi1()
+    {
+        return $this->hasOne(SkalarCF::class, 'kode_skalar', 'opsi_1');
+    }
+
+    public function opsi2()
+    {
+        return $this->hasOne(SkalarCF::class,  'kode_skalar', 'opsi_2');
+    }
+
+    public function opsi3()
+    {
+        return $this->hasOne(SkalarCF::class,  'kode_skalar', 'opsi_3');
+    }
+
     public function gejala()
     {
         return $this->hasOne(Gejala::class, 'kode_gejala', 'kode_gejala');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'nip', 'nip');
+    }
+
+    public function pakar()
+    {
+        return $this->belongsTo(Pakar::class, 'nip_dokter', 'nip_dokter');
     }
 
     protected function mergeBobot(): Attribute
@@ -78,5 +100,10 @@ class Pertanyaan extends Model
                 // }
             },
         );
+    }
+
+    public function treePertanyaan()
+    {
+        return $this->belongsTo(NodePertanyaan::class, 'id_pertanyaan', 'id_pertanyaan');
     }
 }
