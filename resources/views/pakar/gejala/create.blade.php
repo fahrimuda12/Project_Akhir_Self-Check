@@ -1,7 +1,7 @@
 @extends('admin/app')
 @section('content')
     <div class="bg-white rounded-lg py-8 px-4 sm:ml-64">
-        <form action="{{ route('admin.gejala.store') }}" method="POST">
+        <form action="{{ route('pakar.gejala.store') }}" method="POST">
             @csrf
             <div class="relative z-0 w-full mb-6 group">
                 <input type="text" name="kode_gejala" id="floating_kode" value="{{ $kodeGejala }}"

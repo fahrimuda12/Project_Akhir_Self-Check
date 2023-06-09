@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pakar;
 
+use App\Http\Controllers\BaseController;
 use App\Models\Gejala;
+use App\Models\Pakar;
 use App\Models\Penyakit;
 use App\Models\Pertanyaan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PakarController extends Controller
+class PakarController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +20,22 @@ class PakarController extends Controller
      */
     public function index()
     {
+        $penyakit = Penyakit::all();
+        $pakar = Pakar::all()->count();
+        $user = User::all()->count();
+        $penyakitJson = $penyakit->map(function ($data) {
+            return [
+                'nama_penyakit' => $data->nama_penyakit,
+                'total_terjangkit' => $data->total_terjangkit ?? 0,
+            ];
+        });
+
         return view('pakar/dashboard', [
             'title' => 'Dashboard',
+            'user' => $user,
+            'pakar' => $pakar,
+            'penyakit' => $penyakit,
+            'penyakitJson' =>  $penyakitJson,
         ]);
     }
 

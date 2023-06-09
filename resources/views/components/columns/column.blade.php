@@ -1,5 +1,5 @@
 @props(['value'])
 
-<div class="">
-    {{ $value }}
+<div>
+    {{ $value ?? '-' }}
 </div>

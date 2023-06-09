@@ -56,11 +56,11 @@
                 </button>
                 <ul id="dropdown-pakar" class="hidden py-2 space-y-2">
                     <li>
-                        <a href="{{ route('admin.kelola-data.penyakit') }}"
+                        <a href="{{ route('pakar.penyakit.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Penyakit</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.kelola-data.gejala') }}"
+                        <a href="{{ route('pakar.gejala.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gejala</a>
                     </li>
                     <li>
@@ -69,7 +69,7 @@
                             CF</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.kelola-data.gejala') }}"
+                        <a href="{{ route('pakar.gejala.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Pengobatan</a>
                     </li>
                 </ul>

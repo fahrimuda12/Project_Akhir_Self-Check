@@ -8,7 +8,8 @@
                 @foreach ($this->columns() as $column)
                     @if ($column->label == 'ID' || $column->label == 'Kode')
                         <th class="w-1/12" wire:click="sort('{{ $column->key }}')">
-                            <div class="py-3 px-6 flex items-center cursor-pointer border-b-2 border-blue-200">
+                            <div
+                                class="py-3 px-6 flex justify-center items-center cursor-pointer border-b-2 border-blue-200">
                                 {{ $column->label }}
                                 @if ($sortBy === $column->key)
                                     @if ($sortDirection === 'asc')
@@ -31,7 +32,8 @@
                         </th>
                     @else
                         <th wire:click="sort('{{ $column->key }}')">
-                            <div class="py-3 px-6 flex items-center cursor-pointer border-b-2 border-blue-200">
+                            <div
+                                class="py-3 px-6 flex justify-center items-center cursor-pointer border-b-2 border-blue-200">
                                 {{ $column->label }}
                                 @if ($sortBy === $column->key)
                                     @if ($sortDirection === 'asc')
@@ -56,7 +58,7 @@
 
                 @endforeach
                 <th>
-                    <div class="py-3 px-6 flex items-center cursor-pointer border-b-2 border-blue-200">
+                    <div class="py-3 px-6 flex justify-center items-center cursor-pointer border-b-2 border-blue-200">
                         Action
                     </div>
                 </th>
@@ -93,21 +95,21 @@
                     @foreach ($this->columns() as $column)
                         @if ($column->label == 'ID' || $column->label == 'Kode')
                             <td class="w-1/12">
-                                <div class="py-3 px-6 flex items-center cursor-pointer">
+                                <div class="py-3 px-6 flex justify-center items-center cursor-pointer">
                                     <x-dynamic-component :component="$column->component" :value="$row[$column->key]">
                                     </x-dynamic-component>
                                 </div>
                             </td>
                         @elseif($column->label == 'Penginput')
                             <td>
-                                <div class="py-3 px-6 flex items-center cursor-pointer">
+                                <div class="py-3 px-6 flex justify-center items-center cursor-pointer">
                                     <x-dynamic-component :component="$column->component" :value="$row[$column->key] ?? $row['nama_pegawai']">
                                     </x-dynamic-component>
                                 </div>
                             </td>
                         @else
                             <td>
-                                <div class="py-3 px-6 flex items-center cursor-pointer">
+                                <div class="py-3 px-6 flex justify-center items-center cursor-pointer">
                                     <x-dynamic-component :component="$column->component" :value="$row[$column->key]">
                                     </x-dynamic-component>
                                 </div>
@@ -115,15 +117,22 @@
                         @endif
                     @endforeach
                     <td>
-                        <div class="flex flex-col lg:flex-row items-center px-6 py-4 space-x-3">
+                        <div class="flex flex-col lg:flex-row justify-center items-center  py-4 space-x-3">
                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                action="{{ route($route['delete'], $row[$this->columns()[0]->key]) }}" method="POST">
-                                <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                    href="{{ route($route['edit'], Illuminate\Support\Facades\Crypt::encrypt($row[$this->columns()[0]->key])) }}">Edit</a>
+                                action="{{ route($route['delete'], $row[$this->columns()[0]->key]) }}" method="POST"
+                                class="flex gap-3 justify-around">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit"
-                                    class="font-medium text-red-600 dark:text-red-500 hover:underline">Hapus</button>
+
+                                <div>
+                                    <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                        href="{{ route($route['edit'], Illuminate\Support\Facades\Crypt::encrypt($row[$this->columns()[0]->key])) }}">Edit</a>
+                                </div>
+                                <div>
+                                    <button type="submit"
+                                        class="font-medium text-red-600 dark:text-red-500 hover:underline">Hapus</button>
+                                </div>
+
 
                             </form>
                         </div>

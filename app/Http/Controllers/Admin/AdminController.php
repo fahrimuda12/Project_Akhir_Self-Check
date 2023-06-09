@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Models\Admin;
 use App\Models\Gejala;
 use App\Models\Pakar;
@@ -9,17 +10,19 @@ use App\Models\Penyakit;
 use App\Models\Rule;
 use App\Models\SkalarCF;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Kelola\PenggunaRepository;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class AdminController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    private $penggunaRepository;
+    public function __construct()
+    {
+        $this->penggunaRepository = new PenggunaRepository();
+    }
+
+    public function dashboard()
     {
         $penyakit = Penyakit::all();
         $pakar = Pakar::all()->count();
@@ -76,33 +79,11 @@ class AdminController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-
     public function createPengguna()
     {
         return view('admin.kelola-pengguna.create-user', [
             'title' => 'Tambah User'
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     public function storePengguna(Request $request)
@@ -124,68 +105,20 @@ class AdminController extends Controller
             'kode.required' => 'The NIP/NRP field is required.',
             'kode.unique' => 'The NIP/NRP has already been taken.'
         ]);
-        // dd($request->all());
-        //save
-        if ($request->role == 1) {
-            $result = User::create([
-                'nrp' => $request->kode,
-                'nama' => $request->nama,
-                'jenkel' => $request->jenkel,
-                'umur' => $request->umur,
-                'alamat' => $request->address ?? '',
-                'no_hp' => $request->hp ?? 0,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-            ]);
-        } else if ($request->role == 2) {
-            // dd("masuk");
-            $result = Pakar::create([
-                'nip_dokter' => $request->kode,
-                'nama_dokter' => $request->nama,
-                'alamat' => $request->address ?? '',
-                'no_hp' => $request->hp ?? 0,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-            ]);
-        } else if ($request->role == 3) {
-            $result = Admin::create([
-                'nip' => $request->kode,
-                'nama_pegawai' => $request->nama,
-                'alamat' => $request->address ?? '',
-                'no_hp' => $request->hp ?? 0,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-            ]);
-        } else {
-            return redirect()->back()->withErrors(['role' => 'Role tidak ditemukan!']);
-        }
 
+
+        $result = $this->penggunaRepository->storePengguna($request);
         //handling error
-        if (!$result) {
-            return redirect()->back()->withInput($request->all());
+        if ($result) {
+            return redirect()->route('admin.kelola-pengguna.index')->withSuccess('Berhasil menambahkan data pengguna!');
         }
-
-        return redirect()->route('admin.kelola-pengguna');
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
+        return redirect()->back()->withErrors('Gagal menambahkan data pengguna!');
     }
 
     public function editPengguna($id)
     {
         $id = decrypt($id);
-        $users = User::findOr($id, function () use ($id) {
-            return Pakar::findOr($id, function () use ($id) {
-                return Admin::findOrFail($id);
-            });
-        });
+        $users = $this->penggunaRepository->getPengguna($id);
         $kode = 0;
         if ($users->getTable() == 'user') {
             $kode = $users->nrp;
@@ -205,41 +138,21 @@ class AdminController extends Controller
         // dd($users->getTable());
         $title = 'Edit User';
         // dd($users);
-        return view('admin/kelola-pengguna/edit-user', compact('title', 'users', 'kode', 'role'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return view('admin.kelola-pengguna.edit-user', compact('title', 'users', 'kode', 'role'));
     }
 
     public function updatePengguna(Request $request, $id)
     {
-        // dd($model);
-        //validation
         $this->validate($request, [
             'role' => 'required',
-            // 'kode' => 'required|min:1|max:20|unique:user,nrp|unique:admin,nip|unique:pakar,nip_dokter',
             'nama' => 'required',
             'jenkel' => 'required_if:role,1',
             'umur' => 'required_if:role,1|max:100',
             'hp' => 'max:12',
             'alamat' => 'required_if:role,1'
         ]);
-        // dd('berhasil validasi 1');
 
-        $user = User::findOr($id, function () use ($id) {
-            return Pakar::findOr($id, function () use ($id) {
-                return Admin::findOrFail($id);
-            });
-        });
+        $user = $this->penggunaRepository->getPengguna($id);
 
         if ($request->nrp != $user->nrp && $request->nrp != $user->nip && $request->nrp != $user->nip_dokter) {
             // dd($request->nrp, $user->nip_dokter);
@@ -357,7 +270,7 @@ class AdminController extends Controller
                 return redirect()->back()->withInput($request->all());
             }
         }
-        return redirect()->route('admin.kelola-pengguna')->withSuccess('Berhasil Diupdate');
+        return redirect()->route('admin.kelola-pengguna.index')->withSuccess('Berhasil Diupdate');
     }
 
     private function ubahKodeRole($string)
@@ -372,33 +285,23 @@ class AdminController extends Controller
             dd("role tidak ditemukan");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $id = decrypt($id);
-        $user = User::findOr($id, function () use ($id) {
-            return Pakar::findOr($id, function () use ($id) {
-                return Admin::findOrFail($id);
-            });
-        });
+        $user = $this->penggunaRepository->getPengguna($id);
 
         $user->delete();
-        return redirect()->route('admin.kelola-pengguna')->withSuccess('Berhasil Dihapus');
+        return redirect()->route('admin.kelola-pengguna.index')->withSuccess('Berhasil Dihapus');
     }
 
 
     // api
-    public function apiRule()
-    {
-        $query = Penyakit::select('*')
-            ->join('rule', 'rule.kode_penyakit', '=', 'penyakit.kode_penyakit')
-            ->join('gejala', 'gejala.kode_gejala', '=', 'rule.kode_gejala')->get();
-        // dd(response()->json($query));
-        return response()->json($query);
-    }
+    // public function apiRule()
+    // {
+    //     $query = Penyakit::select('*')
+    //         ->join('rule', 'rule.kode_penyakit', '=', 'penyakit.kode_penyakit')
+    //         ->join('gejala', 'gejala.kode_gejala', '=', 'rule.kode_gejala')->get();
+    //     // dd(response()->json($query));
+    //     return response()->json($query);
+    // }
 }

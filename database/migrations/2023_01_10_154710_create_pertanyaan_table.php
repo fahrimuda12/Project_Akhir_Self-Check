@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('opsi_3', 15)->nullable();
             $table->timestamps();
             // $table->foreignUuid('nip');
+
             $table->foreign('nip')->references('nip')->on('admin')->cascadeOnUpdate()->nullOnDelete();
             $table->foreign('nip_dokter')->references('nip_dokter')->on('pakar')->cascadeOnUpdate()->nullOnDelete();
         });

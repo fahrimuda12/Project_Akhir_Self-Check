@@ -2,8 +2,7 @@
 @section('content')
     @extends('admin/sidebar')
     <div class="bg-white rounded-lg py-8 px-4 sm:ml-64">
-        <form
-            action="{{ route('admin.kelola-data.edit-gejala.update', Illuminate\Support\Facades\Crypt::encrypt($data->kode_gejala)) }}"
+        <form action="{{ route('admin.gejala.update', Illuminate\Support\Facades\Crypt::encrypt($data->kode_gejala)) }}"
             method="POST">
             @csrf
             <div class="relative z-0 w-full mb-6 group">

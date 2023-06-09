@@ -1,44 +1,33 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Models\Gejala;
 use App\Models\Penyakit;
 use App\Models\Pertanyaan;
 use App\Models\Rule;
 use App\Models\SkalarCF;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\DB;
 
-class PertanyaanController extends Controller
+class PertanyaanController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $pertanyaan = Pertanyaan::all();
         // dd($pertanyaan);
-        return view('admin/kelola-data/pertanyaan/index', [
+        return view('admin.kelola-data.pertanyaan.index', [
             'title' => 'Pertanyaan',
             'pertanyaan' => $pertanyaan
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $gejala = Gejala::all();
         $nilai = SkalarCF::where('kode_skalar', 'LIKE', 'KS%')->get();
-        return view('admin/kelola-data/penyakit/create', [
+        return view('admin.kelola-data.penyakit.create', [
             'title' => 'Tambah Penyakit',
             'gejala' => $gejala,
             'nilai' => $nilai
@@ -94,34 +83,6 @@ class PertanyaanController extends Controller
         return redirect()->route('admin.kelola-data.penyakit')->withSuccess('Data berhasil ditambahkan');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $id = Crypt::decrypt($id);
@@ -137,13 +98,6 @@ class PertanyaanController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
 
@@ -172,25 +126,19 @@ class PertanyaanController extends Controller
         return redirect()->route('admin.kelola-data.penyakit')->withSuccess('Data berhasil diubah');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Penyakit $penyakit)
+    public function destroy(Pertanyaan $pertanyaan)
     {
         // dd($penyakit);
         // make destroy penyakit
         // $id = Crypt::decrypt($id);
-        $penyakit->delete();
+        $pertanyaan->delete();
 
         //check data has deleted and redirect witerror
-        if (!$penyakit) {
+        if (!$pertanyaan) {
             return redirect()->back()->withError('Data gagal dihapus');
         }
         // $gejala = Rule::where('kode_penyakit', '=', $id)->delete();
         // $penyakit->delete();
-        return redirect()->route('admin.kelola-data.penyakit')->withSuccess('Data berhasil dihapus');
+        return redirect()->route('admin.pertanyaan.index')->withSuccess('Data berhasil dihapus');
     }
 }

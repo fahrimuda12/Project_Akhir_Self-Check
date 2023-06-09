@@ -93,15 +93,15 @@
                 </button>
                 <ul id="dropdown-example" class="hidden py-2 space-y-2">
                     <li>
-                        <a href="{{ route('admin.kelola-data.penyakit') }}"
+                        <a href="{{ route('admin.penyakit.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Penyakit</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.kelola-data.gejala') }}"
+                        <a href="{{ route('admin.gejala.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Gejala</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.kelola-data.pertanyaan') }}"
+                        <a href="{{ route('admin.pertanyaan.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Pertanyaan</a>
                     </li>
                 </ul>
@@ -119,7 +119,7 @@
                 </a>
             </li> --}}
             <li>
-                <a href="{{ route('admin.kelola-pengguna') }}"
+                <a href="{{ route('admin.kelola-pengguna.index') }}"
                     class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg aria-hidden="true"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"

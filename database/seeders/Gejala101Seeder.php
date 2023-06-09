@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class GejalaSeeder extends Seeder
+class Gejala101Seeder extends Seeder
 {
     public function run()
     {
@@ -248,7 +248,7 @@ class GejalaSeeder extends Seeder
                     $skalar1 = '1-' . ($data["rentang_atas"] - 1);
                     SkalarCF::where('kode_skalar', '=', $pertanyaan->opsi_2)->update([
                         'skalar' => $skalar1,
-                        'bobot_nilai' => 0.5,
+                        'bobot_nilai' => 0,
                         'tipe' => $data["tipe"],
                     ]);
                     SkalarCF::where('kode_skalar', '=', $pertanyaan->opsi_3)->update([
@@ -290,7 +290,7 @@ class GejalaSeeder extends Seeder
                     SkalarCF::insert([[
                         'kode_skalar' => $kode_skalar1,
                         'skalar' => $skalar1,
-                        'bobot_nilai' => 0.5,
+                        'bobot_nilai' => 0,
                         'tipe' => $data["tipe"],
                     ], [
                         'kode_skalar' => $kode_skalar2,

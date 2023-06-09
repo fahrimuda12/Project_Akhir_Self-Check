@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class PenyakitSeeder extends Seeder
+class PenyakitBaru2Seeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -40,7 +40,7 @@ class PenyakitSeeder extends Seeder
                 'gejala' => [
                     [
                         'kode_gejala' => 'G01',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -58,7 +58,7 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G04',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -82,19 +82,19 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G08',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 1,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G09',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G12',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 1,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -106,19 +106,19 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G16',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G17',
-                        'nilai_cf' =>  0.8,
+                        'nilai_cf' =>  0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G18',
-                        'nilai_cf' =>  0.8,
+                        'nilai_cf' =>  0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -130,13 +130,13 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G25',
-                        'nilai_cf' =>  0.5,
+                        'nilai_cf' =>  0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G26',
-                        'nilai_cf' =>  0.5,
+                        'nilai_cf' =>  0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -151,13 +151,13 @@ class PenyakitSeeder extends Seeder
                 'gejala' => [
                     [
                         'kode_gejala' => 'G01',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G02',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -169,19 +169,19 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G08',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G09',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G12',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -192,25 +192,25 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G15',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G16',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G19',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G21',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -240,7 +240,7 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G28',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -255,7 +255,7 @@ class PenyakitSeeder extends Seeder
                 'gejala' => [
                     [
                         'kode_gejala' => 'G01',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -273,19 +273,19 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G06',
-                        'nilai_cf' => 0.8,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now(),
-                    ],
-                    [
-                        'kode_gejala' => 'G08',
                         'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
+                        'kode_gejala' => 'G08',
+                        'nilai_cf' => 0,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ],
+                    [
                         'kode_gejala' => 'G12',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -297,7 +297,7 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G16',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -333,13 +333,13 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G24',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G28',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -354,7 +354,7 @@ class PenyakitSeeder extends Seeder
                 'gejala' => [
                     [
                         'kode_gejala' => 'G01',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -366,7 +366,7 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G03',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -378,31 +378,31 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G06',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G10',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G11',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G12',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G13',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -420,7 +420,7 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G21',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ]
@@ -435,13 +435,13 @@ class PenyakitSeeder extends Seeder
                 'gejala' => [
                     [
                         'kode_gejala' => 'G01',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G02',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -459,19 +459,19 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G06',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G08',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G12',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -483,13 +483,13 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G16',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G19',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
@@ -513,19 +513,19 @@ class PenyakitSeeder extends Seeder
                     ],
                     [
                         'kode_gejala' => 'G28',
-                        'nilai_cf' => 0.8,
+                        'nilai_cf' => 0.5,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G29',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],
                     [
                         'kode_gejala' => 'G30',
-                        'nilai_cf' => 0.5,
+                        'nilai_cf' => 0,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),
                     ],

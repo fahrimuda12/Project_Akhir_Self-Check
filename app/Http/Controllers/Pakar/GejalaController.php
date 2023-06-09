@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pakar;
 
+use App\Http\Controllers\BaseController;
 use App\Repositories\Kelola\GejalaRepository;
 use App\Models\Gejala;
 use App\Models\Pertanyaan;
 use App\Models\Rule;
 use App\Models\SkalarCF;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
-class GejalaController extends Controller
+class GejalaController extends BaseController
 {
     private $gejalaRepository;
 
@@ -39,7 +39,7 @@ class GejalaController extends Controller
         $rule = Rule::paginate(10);
         $skalar = SkalarCF::all();
         // dd($disease[0]['gejala'][0]['gejala']);
-        return view('admin/kelola-data/gejala/index', [
+        return view('pakar.gejala.index', [
             'title' => 'Gejala',
             'gejala' => $gejala,
             'rules' => $rule,
@@ -78,7 +78,7 @@ class GejalaController extends Controller
         $kode_gejala = Gejala::pluck('kode_gejala')->count();
         $kode_gejala = $this->getCustomIdAttribute($kode_gejala + 1);
         $nilai = SkalarCF::all();
-        return view('admin/kelola-data/gejala/create', [
+        return view('pakar.gejala.create', [
             'title' => 'Tambah Gejala',
             'nilai' => $nilai,
             'kodeGejala' => $kode_gejala,
@@ -95,15 +95,13 @@ class GejalaController extends Controller
         ]);
         $result = $this->gejalaRepository->storeGejala($request);
         if ($result == false)
-            return redirect()->route('admin.kelola-data.tambah-gejala')->with('error', 'Data Tidak berhasil ditambah');
+            return redirect()->route('pakar.gejala.create')->with('error', 'Data Tidak berhasil ditambah');
 
-        return redirect()->route('admin.kelola-data.gejala')->with('success', 'Data Gejala Berhasil Ditambahkan');
+        return redirect()->route('pakar.gejala.index')->with('success', 'Data Gejala Berhasil Ditambahkan');
     }
 
     public function edit($id)
     {
-
-
         $id = Crypt::decrypt($id);
         $data = Gejala::join('pertanyaan', 'pertanyaan.kode_gejala', '=', 'gejala.kode_gejala')
             ->leftjoin('pakar', 'pakar.nip_dokter', '=', 'gejala.nip_dokter')
@@ -129,7 +127,7 @@ class GejalaController extends Controller
         // dd($data);
         $nilai = SkalarCF::all();
 
-        return view('admin.kelola-data.gejala.edit', [
+        return view('pakar.gejala.edit', [
             'title' => 'Edit Penyakit',
             'data' => $data,
             'nilai' => $nilai,
@@ -149,9 +147,9 @@ class GejalaController extends Controller
         $result = $this->gejalaRepository->updateGejala($request);
 
         if ($result == false)
-            return redirect()->route('admin.kelola-data.gejala')->with('error', 'Data Gejala Gagal Diubah');
+            return redirect()->route('pakar.gejala.index')->with('error', 'Data Gejala Gagal Diubah');
 
-        return redirect()->route('admin.kelola-data.gejala')->with('success', 'Data Gejala Berhasil Diubah');
+        return redirect()->route('pakar.gejala.index')->with('success', 'Data Gejala Berhasil Diubah');
     }
 
     public function destroy($id)
@@ -161,7 +159,7 @@ class GejalaController extends Controller
             Gejala::where('kode_gejala', $id)->delete();
             Pertanyaan::where('kode_gejala', $id)->delete();
             DB::commit();
-            return redirect()->route('admin.kelola-data.gejala')->with('success', 'Data Gejala Berhasil Dihapus');
+            return redirect()->route('pakar.gejala.index')->with('success', 'Data Gejala Berhasil Dihapus');
         } catch (\Exception $error) {
             DB::rollback();
             dd($error->getMessage());

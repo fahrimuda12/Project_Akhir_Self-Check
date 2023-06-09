@@ -19,9 +19,20 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             PakarSeeder::class,
-            SkalarCFSeeder::class,
-            GejalaSeeder::class,
-            PenyakitSeeder::class,
+            // SkalarCFSeeder::class,
+            SkalarCF101Seeder::class,
+            // GejalaSeeder::class,
+            Gejala101Seeder::class,
+            // PenyakitSeeder::class,
+            // PenyakitBaruSeeder::class,
+            // ini yang benar
+            // PenyakitBaru2Seeder::class,
+            // PenyakitAllSeeder::class,
+            // PenyakitAll2Seeder::class,
+            // PenyakitBukanSeeder::class,
+            // Penyakit246Seeder::class,
+            Penyakit468Seeder::class,
+            // Penyakit035Seeder::class,
 
             // TabelKeputusanSeeder::class,
         ]);

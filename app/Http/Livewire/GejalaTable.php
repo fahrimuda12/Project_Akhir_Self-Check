@@ -11,7 +11,7 @@ class GejalaTable extends Table
 {
     public  function __construct()
     {
-        $this->route = ['edit' => 'admin.kelola-data.edit-gejala', 'delete' => 'admin.kelola-data.delete-gejala'];
+        $this->route = ['edit' => 'admin.gejala.edit', 'delete' => 'admin.gejala.delete'];
         $this->model = 'gejala';
     }
     public function query(): Builder

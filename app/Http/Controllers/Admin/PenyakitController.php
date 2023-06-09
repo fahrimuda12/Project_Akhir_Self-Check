@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use App\Models\Gejala;
 use App\Models\Penyakit;
-use App\Models\Pertanyaan;
 use App\Models\Rule;
 use App\Models\SkalarCF;
 use App\Repositories\Kelola\PenyakitRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
-class PenyakitController extends Controller
+class PenyakitController extends BaseController
 {
     private $penyakitRepository;
     public function __construct(PenyakitRepository $penyakitRepository)
@@ -25,7 +24,7 @@ class PenyakitController extends Controller
     {
         $disease = Penyakit::with('gejala')->get();
         $rule = Rule::paginate(10);
-        return view('admin/kelola-data/penyakit/index', [
+        return view('admin.kelola-data.penyakit.index', [
             'title' => 'Penyakit',
             'diseases' => $disease,
             'rules' => $rule,
@@ -42,7 +41,7 @@ class PenyakitController extends Controller
         $gejala = Gejala::all();
         $nilai = SkalarCF::where('kode_skalar', 'LIKE', 'KS%')->get();
 
-        return view('admin/kelola-data/penyakit/create', [
+        return view('admin.kelola-data.penyakit.create', [
             'title' => 'Tambah Penyakit',
             'gejala' => $gejala,
             'nilai' => $nilai
@@ -58,39 +57,11 @@ class PenyakitController extends Controller
         $result = $this->penyakitRepository->storePenyakit($request);
         // die();
         if ($result == false) {
-            return redirect()->route('admin.kelola-data.penyakit.edit')->with('error', 'Data Penyakit Gagal Ditambah');
+            return redirect()->route('admin.penyakit.edit')->with('error', 'Data Penyakit Gagal Ditambah');
         }
-        return redirect()->route('admin.kelola-data.penyakit')->withSuccess('Data berhasil ditambahkan');
+        return redirect()->route('admin.penyakit.index')->withSuccess('Data berhasil ditambahkan');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $id = Crypt::decrypt($id);
@@ -98,7 +69,7 @@ class PenyakitController extends Controller
         // dd($penyakit->rule());
         $gejala = Gejala::all();
         $nilai = SkalarCF::where('kode_skalar', 'LIKE', 'KS%')->get();
-        return view('admin/kelola-data/penyakit/edit', [
+        return view('admin.kelola-data.penyakit.edit', [
             'title' => 'Edit Penyakit',
             'penyakit' => $penyakit,
             'gejala' => $gejala,
@@ -117,24 +88,18 @@ class PenyakitController extends Controller
 
         $result = $this->penyakitRepository->updatePenyakit($request, $id);
         if ($result == false) {
-            return redirect()->route('admin.kelola-data.penyakit.edit')->with('error', 'Data Penyakit Gagal Diubah');
+            return redirect()->route('admin.penyakit.edit')->with('error', 'Data Penyakit Gagal Diubah');
         }
-        return redirect()->route('admin.kelola-data.penyakit')->withSuccess('Data berhasil diubah');
+        return redirect()->route('admin.penyakit.index')->withSuccess('Data Penyakit berhasil diubah');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Penyakit $penyakit)
     {
         DB::beginTransaction();
         try {
             $penyakit->delete();
             DB::commit();
-            return redirect()->route('admin.kelola-data.gejala')->with('success', 'Data Gejala Berhasil Dihapus');
+            return redirect()->route('admin.penyakit.index')->with('success', 'Data Penyakit Berhasil Dihapus');
         } catch (\Exception $error) {
             DB::rollback();
             dd($error->getMessage());
