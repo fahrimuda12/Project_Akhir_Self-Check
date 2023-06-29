@@ -156,7 +156,7 @@ class AdminController extends BaseController
 
         if ($request->nrp != $user->nrp && $request->nrp != $user->nip && $request->nrp != $user->nip_dokter) {
             // dd($request->nrp, $user->nip_dokter);
-            dd('berbeda');
+            // dd('berbeda');
             $this->validate(
                 $request,
                 [
@@ -170,7 +170,7 @@ class AdminController extends BaseController
             // dd("berhasil validai nrp");
         }
         if ($request->email != $user->email) {
-            dd('berbeda');
+            // dd('berbeda');
             $this->validate(
                 $request,
                 [

@@ -9,6 +9,7 @@ use App\Models\Pertanyaan;
 use App\Models\Rule;
 use App\Models\SkalarCF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
@@ -38,6 +39,9 @@ class GejalaController extends BaseController
         $gejala = Gejala::all();
         $rule = Rule::paginate(10);
         $skalar = SkalarCF::all();
+        // dd(Auth::user()->nip);
+        // get guard nae
+        // dd(Auth::guard('pakar')->user()->nip_dokter);
         // dd($disease[0]['gejala'][0]['gejala']);
         return view('pakar.gejala.index', [
             'title' => 'Gejala',

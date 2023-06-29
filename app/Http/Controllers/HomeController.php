@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -14,8 +15,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::guard()->check())
+            $riwayat = User::find(Auth::guard()->user()->nrp)->riwayatPenyakit->count() ?? null;
+        // dd($riwayat);
         return view('user.home.index', [
-            'title' => 'Home'
+            'title' => 'Home',
+            'total_penyakit' => $riwayat ?? 0,
         ]);
     }
 

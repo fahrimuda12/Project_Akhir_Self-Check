@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('kode_penyakit', 5);
             $table->string('kode_pasien', 15);
             $table->float('nilai_cf');
-            $table->string('keterangan', 50);
+            $table->string('keterangan', 100);
             $table->timestamps();
 
             $table->foreign('kode_penyakit')->references('kode_penyakit')->on('penyakit')->cascadeOnUpdate()->cascadeOnDelete();

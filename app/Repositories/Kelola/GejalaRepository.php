@@ -114,13 +114,25 @@ class GejalaRepository
             $pertanyaan->pertanyaan = $request->pertanyaan;
             if ($request->skalarOption == "pilgan") {
                 // update pertanyaan
-                SkalarCF::where('kode_skalar', $pertanyaan->opsi_2)->delete();
-                SkalarCF::where('kode_skalar', $pertanyaan->opsi_3)->delete();
+                if (substr($pertanyaan->opsi_2, 0, 2) == "AB") {
+                    SkalarCF::where('kode_skalar', $pertanyaan->opsi_2)->delete();
+                }
+                if (substr($pertanyaan->opsi_3, 0, 2) == "AB") {
+                    SkalarCF::where('kode_skalar', $pertanyaan->opsi_3)->delete();
+                }
                 $pertanyaan->opsi_1 = "KS01";
                 $pertanyaan->opsi_2 = "KS02";
                 $pertanyaan->opsi_3 = "KS03";
             } else if ($request->skalarOption == "inputan") {
                 $kode_skalar = SkalarCF::where('kode_skalar', 'like', 'AB%')->pluck('kode_skalar')->last();
+                // melakukan pengecekan apakah kode skalarnya diawalin AB
+                if (substr($pertanyaan->opsi_2, 0, 2) == "AB") {
+                    SkalarCF::where('kode_skalar', $pertanyaan->opsi_2)->delete();
+                }
+                if (substr($pertanyaan->opsi_3, 0, 2) == "AB") {
+                    SkalarCF::where('kode_skalar', $pertanyaan->opsi_3)->delete();
+                }
+
 
                 $skalar1 = '1-' . ($request->inputan - 1);
                 $kode_skalar1 = ++$kode_skalar;
@@ -128,7 +140,7 @@ class GejalaRepository
                 SkalarCF::insert([[
                     'kode_skalar' => $kode_skalar1,
                     'skalar' => $skalar1,
-                    'bobot_nilai' => 0.5,
+                    'bobot_nilai' => 0,
                     'tipe' => 'inputan',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()

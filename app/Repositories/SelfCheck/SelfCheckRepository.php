@@ -107,7 +107,8 @@ class SelfCheckRepository
 
                 $CF_result[$i]["kodePenyakit"] = $penyakit[$i]->kode_penyakit;
                 $CF_result[$i]["penyakit"] = $penyakit[$i]->nama_penyakit;
-                $CF_result[$i]["cf"] = number_format($CFK, 4) / 1 * 100;
+                // dd(number_format($CFK, 4));
+                $CF_result[$i]["cf"] = number_format($CFK / 1 * 100, 4);
             }
             // die();
             return $CF_result;
@@ -145,20 +146,19 @@ class SelfCheckRepository
 
             $result = $this->analyticCF($penyakit, $request);
             // $result = $this->showAnalyticCF($penyakit, $request);
-
+            // dd($result);
             //filter if $result > 0
-            $result = array_filter($result, function ($value) {
+            $resultArray = array_filter($result, function ($value) {
                 return $value['cf'] > 0;
             });
-
-            usort($result, function ($a, $b) {
+            usort($resultArray, function ($a, $b) {
                 return $b['cf'] <=> $a['cf'];
             });
 
             // dd($result);
-            $this->storeRiwayatPenyakit($result);
+            $this->storeRiwayatPenyakit($resultArray);
 
-            return $result;
+            return $resultArray;
         } catch (\Exception $error) {
             return response()->json([
                 'pesan' => "Gagal",

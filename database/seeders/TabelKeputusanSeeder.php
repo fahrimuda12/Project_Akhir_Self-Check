@@ -226,79 +226,88 @@ class TabelKeputusanSeeder extends Seeder
                 ],
             ]
         );
-        Rule::insert(
+
+        $data = [
             [
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G01',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G02',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G06',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G07',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G12',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G13',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G14',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G15',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G19',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G21',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G22',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G24',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G26',
-                    'nilai_cf'  => 0.8
-                ],
-                [
-                    'kode_penyakit' => 'P06',
-                    'kode_gejala' => 'G28',
-                    'nilai_cf'  => 0.8
-                ],
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G01',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G02',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G06',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G07',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G12',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G13',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G14',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G15',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G19',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G21',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G22',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G24',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G26',
+                'nilai_cf'  => 0.8
+            ],
+            [
+                'kode_penyakit' => 'P06',
+                'kode_gejala' => 'G28',
+                'nilai_cf'  => 0.8
             ]
-        );
+        ];
+
+        foreach ($data as $value) {
+            Rule::insert(
+                [
+                    'kode_penyakit' => $value['kode_penyakit'],
+                    'kode_gejala' => $value['kode_gejala'],
+                    'nilai_cf'  => $value['nilai_cf']
+                ]
+            );
+        }
     }
 }

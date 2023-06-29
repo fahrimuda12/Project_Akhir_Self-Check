@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('kode_penyakit', 5);
             $table->string('nip_dokter', 18)->nullable();
             $table->string('nip', 18)->nullable();
-            $table->string('nama_penyakit', 15);
+            $table->string('nama_penyakit', 50);
             $table->timestamps();
             $table->primary('kode_penyakit');
             $table->foreign('nip')->references('nip')->on('admin')->cascadeOnUpdate()->nullOnDelete();

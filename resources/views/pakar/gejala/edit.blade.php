@@ -1,6 +1,6 @@
-@extends('admin/app')
+@extends('pakar/app')
 @section('content')
-    @extends('admin/sidebar')
+    {{-- @extends('pakar/sidebar') --}}
     <div class="bg-white rounded-lg py-8 px-4 sm:ml-64">
         <form action="{{ route('pakar.gejala.update', Illuminate\Support\Facades\Crypt::encrypt($data->kode_gejala)) }}"
             method="POST">

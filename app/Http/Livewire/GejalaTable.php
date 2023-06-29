@@ -5,13 +5,14 @@ namespace App\Http\Livewire;
 use App\Models\Gejala;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class GejalaTable extends Table
 {
     public  function __construct()
     {
-        $this->route = ['edit' => 'admin.gejala.edit', 'delete' => 'admin.gejala.delete'];
+        $this->route = ['edit' => isset(Auth::guard('pakar')->user()->nip_dokter) ? 'pakar.gejala.edit' : 'admin.gejala.edit', 'delete' => isset(Auth::guard('pakar')->user()->nip_dokter) ? 'pakar.gejala.delete' : 'admin.gejala.delete'];
         $this->model = 'gejala';
     }
     public function query(): Builder

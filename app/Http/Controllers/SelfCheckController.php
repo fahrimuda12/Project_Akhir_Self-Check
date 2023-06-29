@@ -21,8 +21,9 @@ class SelfCheckController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexQuiz()
+    public function indexQuiz(Request $request)
     {
+        $request->session()->forget('is_reloaded');
         // $data = [
         //     [
         //         'kode' => 'PO1',
@@ -243,11 +244,18 @@ class SelfCheckController extends Controller
         ]);
     }
 
-    public function indexDiagnosa(Request $request)
+    public function indexDiagnosa(Request $request, $CF_result = null)
     {
+        // if ($request->session()->has('is_reloaded')) {
+        //     // Pengguna melakukan reload, lakukan pengalihan ke rute lain
+        //     return redirect()->route('konsul.quiz');
+        // }
+
         $CF_result = (new SelfCheckRepository)->getDiagnosa($request);
 
-        return view('user/konsul/diagnosa', [
+        // delete all request
+        // $request->session()->put('is_reloaded', true);
+        return view('user.konsul.diagnosa', [
             'title' => 'Hasil Diagnosa',
             'result' => $CF_result
         ]);
@@ -256,13 +264,24 @@ class SelfCheckController extends Controller
 
     public function indexRiwayat()
     {
-        $riwayat = User::find(Auth::guard()->user()->nrp)->riwayatPenyakit->groupBy('riwayat_penyakit.created_at');
+        $riwayat = User::find(Auth::guard()->user()->nrp)->riwayatPenyakit->groupBy('riwayat_penyakit.nilai_cf');
+        if ($riwayat->isEmpty()) {
+            return view('user.konsul.riwayat', [
+                'title' => 'Riwayat Diagnosa',
+                'riwayat' => $riwayat
+            ]);
+        }
         $riwayat = $riwayat[""];
+        // dd($riwayat);
+
+        // kelompokkan riwayat penyakit berdasarkan tanggal dan menjadi satu array
+        // $riwayat = $riwayat->groupBy('riwayat_penyakit.created_at');
+
         // dd($riwayat[0]->pivot->created_at);
         // dd($riwayat[""][0]->pivot);
         // dd($riwayat);
 
-        return view('user/konsul/riwayat', [
+        return view('user.konsul.riwayat', [
             'title' => 'Riwayat Diagnosa',
             'riwayat' => $riwayat
         ]);

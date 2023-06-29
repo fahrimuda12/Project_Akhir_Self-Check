@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('admin', function (Blueprint $table) {
             $table->string('nip', 18);
-            $table->string('nama_pegawai', 25);
+            $table->string('nama_pegawai', 50);
             $table->text('alamat');
             $table->integer('no_hp');
             $table->string('email', 50)->unique();
